@@ -22,5 +22,5 @@ urlpatterns = [
     path('', donation.views.home_page, name='main'),
     path('donate', donation.views.donate),
     path('request/donation', donation.views.donation),
-
+    path('list', donation.views.list),
 ]

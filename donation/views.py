@@ -1,6 +1,9 @@
 from django.shortcuts import render
 import json
 
+from donation.models import Donate
+
+
 def home_page(request):
     return render(request, 'main.html')
 
@@ -24,6 +27,11 @@ def donation(request):
         json.dump(data_list, data)
     return render(request, 'donation.html', {'context': context})
 
+def list(request):
+    context = {'datajson':[]}
+    donate = Donate.objects.all()
+    context['datajson'] = donate
 
+    return render(request, 'list.html', context)
 
 
