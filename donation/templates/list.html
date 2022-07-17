@@ -15,13 +15,13 @@
         </tr>
         </thead>
         <tbody>
+        {% for each_donate in data %}
         <tr>
-            {% for each_donate in datajson %}
             <td>{{ each_donate.id }}</td>
             <td>{{ each_donate.name }}</td>
             <td>{{ each_donate.amount }}</td>
-            {% endfor %}
         </tr>
+        {% endfor %}
         </tbody>
     </table>
       <p>
