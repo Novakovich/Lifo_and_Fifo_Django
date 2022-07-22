@@ -5,8 +5,6 @@ from django.db import migrations
 def migrate_db(apps, schema_editor):
     Donate = apps.get_model('donation', 'Donate')
     for donate in Donate.objects.all():
-        donate.name = donate.name
-        donate.amount = donate.amount
         donate.save()
 
 class Migration(migrations.Migration):

@@ -25,4 +25,3 @@ def list(request):
     context['data'] = donate
     return render(request, 'list.html', context)
 
-
