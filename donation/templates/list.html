@@ -12,6 +12,8 @@
             <th scope="col">id</th>
             <th scope="col">name</th>
             <th scope="col">amount</th>
+            <th scope="col">state</th>
+            <th scope="col">office</th>
         </tr>
         </thead>
         <tbody>
@@ -20,6 +22,8 @@
             <td>{{ each_donate.id }}</td>
             <td>{{ each_donate.name }}</td>
             <td>{{ each_donate.amount }}</td>
+            <td>{{ each_donate.state }}</td>
+            <td>{{ each_donate.office }}</td>
         </tr>
         {% endfor %}
         </tbody>

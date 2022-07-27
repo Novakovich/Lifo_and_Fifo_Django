@@ -23,5 +23,6 @@ def list(request):
     context = {'data':[]}
     donate = Donate.objects.all()
     context['data'] = donate
+    #default_place = Office.objects.order_by('?')[0]
     return render(request, 'list.html', context)
 
