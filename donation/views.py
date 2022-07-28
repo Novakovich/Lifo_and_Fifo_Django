@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from donation.models import Donate
+from donation.models import Donate, Office
 
 
 def home_page(request):
@@ -8,8 +8,10 @@ def home_page(request):
 def donate(request):
     Donate.objects.create(
         name=request.POST["name"],
-        amount=request.POST["amount"]
+        amount=request.POST["amount"],
+        office=Office.objects.order_by('?')[0]
     )
+
     return render(request, 'donate.html')
 
 def donation(request):
@@ -20,9 +22,11 @@ def donation(request):
     return render(request, 'donation.html', {"donate": donate})
 
 def list(request):
-    context = {'data':[]}
+
+    context = {
+        'data': []
+    }
     donate = Donate.objects.all()
     context['data'] = donate
-    #default_place = Office.objects.order_by('?')[0]
     return render(request, 'list.html', context)
 

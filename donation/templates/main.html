@@ -13,6 +13,7 @@
             </div>
             <div class="card-body">
                 <form action="/donate" method="post">
+                    {% csrf_token %}
                     <div class="registation">
                         <label>Name
                             <input type="text" name="name" class="form-control">
@@ -39,6 +40,7 @@
             </div>
             <div class="card-body">
                 <form action="/request/donation">
+                    {% csrf_token %}
                     <button type="submit" class="btn btn-primary" style="width: 24rem;" >Ask for donate</button>
                 </form>
             </div>
