@@ -1,7 +1,25 @@
 {% load static %}
+<style>
+    body {
+        background-image: url({% static "white-hexagon-pattern-background_1393-307.jpg"%});
+        background-size: 100%;
+        background-attachment: fixed;
+    }
+</style>
 <nav class="navbar navbar-dark bg-primary">
     <div class="container-fluid">
         <a class="navbar-brand" href="/"><img src="{% static 'Без имени.png'%}" alt="" width="120" height="36" class="d-inline-block align-text-top"></a>
+        <ul class="navbar-nav">
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Storage
+          </a>
+          <ul class="dropdown-menu dropdown-menu-dark">
+            <li><a class="dropdown-item" href="#">Brest</a></li>
+            <li><a class="dropdown-item" href="#">Minsk</a></li>
+          </ul>
+        </li>
+      </ul>
         <a class="navbar-brand" href="/list">List</a>
     </div>
 </nav>

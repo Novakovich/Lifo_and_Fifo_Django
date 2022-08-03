@@ -3,7 +3,13 @@ from donation.models import Donate, Office
 
 
 def home_page(request):
-    return render(request, 'main.html')
+    state = Office.objects.order_by('office_count').last()
+
+    context = {
+         "disabled": state.office_count >= state.capacity,
+         "state": {state.office_count, state.capacity}
+    }
+    return render(request, 'main.html', context)
 
 def donate(request):
     Donate.objects.create(

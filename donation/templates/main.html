@@ -6,6 +6,7 @@
 </head>
 <body>
     {% include 'header.html' %}
+    Available state = {{ state }}
     <div style="position: relative; padding: 10px; ">
         <div class="card" style="width: 26rem;">
             <div class="card-header">
@@ -28,7 +29,7 @@
                     <div id="amount" class="form-text">Enter amount of things.</div>
                      <p>
                     </p>
-                    <button type="submit" class="btn btn-primary" style="width: 24rem;">Donate</button>
+                    <button {% if disabled %} disabled {% endif %} type="submit" class="btn btn-primary" style="width: 24rem;">Donate</button>
                 </form>
             </div>
         </div>
