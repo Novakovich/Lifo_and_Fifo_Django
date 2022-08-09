@@ -1,21 +1,24 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from donation.models import Donate, Office
 
 
 def home_page(request):
     state = Office.objects.order_by('office_count').last()
-
     context = {
-         "disabled": state.office_count >= state.capacity,
-         "state": {state.office_count, state.capacity}
+        "office": Office.objects.all(),
+        "disabled": state.office_count > state.capacity,
     }
     return render(request, 'main.html', context)
+
+def session_office(request):
+    office_id = request.session["office"] = request.POST["office"]
+    return render(request, 'main.html')
 
 def donate(request):
     Donate.objects.create(
         name=request.POST["name"],
         amount=request.POST["amount"],
-        office=Office.objects.order_by('?')[0]
+        office_id=request.session["office"]
     )
     return render(request, 'donate.html')
 

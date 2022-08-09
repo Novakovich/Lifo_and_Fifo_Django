@@ -23,4 +23,5 @@ urlpatterns = [
     path('donate', donation.views.donate),
     path('request/donation', donation.views.donation),
     path('list', donation.views.list),
+    path('set_office', donation.views.session_office, name='set_session_office'),
 ]

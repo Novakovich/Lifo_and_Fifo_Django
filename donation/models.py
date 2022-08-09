@@ -1,5 +1,5 @@
 from django.db import models
-from django.db.models import Sum
+from django.db.models import Sum, F
 
 
 class Office(models.Model):
@@ -9,7 +9,7 @@ class Office(models.Model):
 
     class Meta:
         constraints = [
-            models.CheckConstraint(check=models.Q(office_count__lte=100), name='office_count_lte_100'),
+            models.CheckConstraint(check=models.Q(office_count__lte=F('capacity')), name='office_count_lte'),
         ]
 
 
