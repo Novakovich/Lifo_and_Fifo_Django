@@ -1,4 +1,5 @@
-from django.shortcuts import render, redirect
+from django.db import transaction
+from django.shortcuts import render
 from donation.models import Donate, Office
 
 
@@ -14,6 +15,8 @@ def session_office(request):
     office_id = request.session["office"] = request.POST["office"]
     return render(request, 'main.html')
 
+
+@transaction.atomic
 def donate(request):
     Donate.objects.create(
         name=request.POST["name"],
@@ -22,8 +25,9 @@ def donate(request):
     )
     return render(request, 'donate.html')
 
+@transaction.atomic
 def donation(request):
-    donate = Donate.objects.order_by('id').filter(state='Available').first()
+    donate = Donate.objects.select_for_update().order_by('id').filter(state='Available').first()
     if not donate:
         return render(request, 'no_data.html')
     donate.state = 'Booked'
