@@ -8,10 +8,10 @@
     {% include 'header.html' %}
     <div style="position: relative; padding: 10px; ">
         <div class="card" style="width: 26rem;">
-            <div class="card-header">
+            <div class="card-header" style="background-color: #c66ecc;">
                 <h3>Donation Form</h3>
             </div>
-            <div class="card-body">
+            <div class="card-body" style="background-color: #ced45d;">
                 <form action="/donate" method="post">
                     {% csrf_token %}
                     <div class="registation">
@@ -33,23 +33,36 @@
             </div>
         </div>
     </div>
-    <div style="position: relative; padding: 10px;">
+    <div style="position: absolute; margin-left: 520px; margin-top: -355px; padding: 10px;">
         <div class="card" style="width: 26rem;">
-            <div class="card-header">
+            <div class="card-header" style="background-color: #c66ecc;">
                 <h3>Registration Donating</h3>
             </div>
-            <div class="card-body">
+            <div class="card-body" style="background-color: #ced45d;">
                 <form action="/request/donation">
                     {% csrf_token %}
                     <button type="submit" class="btn btn-primary" style="width: 24rem;" >Ask for donate</button>
                 </form>
-            </div>
-            <div class="card-body">
-                <form action="/list">
-                    <button type="submit" class="btn btn-primary" style="width: 24rem;" >List</button>
+                <form action="/request/number" method="post" style="margin-top: 60px";>
+                    {% csrf_token %}
+                    <label>Ask for request
+                        <input type="number" name="request" class="form-control">
+                    </label>
+                    <div id="request" class="form-text">Enter the number of donations requested.</div>
+                    <button type="submit" class="btn btn-primary" style="width: 24rem;" >Request</button>
                 </form>
             </div>
         </div>
+    </div>
+    <div class="card-body" style="background-color: #ced45d;
+    width: 25rem;
+    position: absolute;
+    margin-left: 1030px;
+    margin-top: -340px;
+    padding: 10px;">
+        <form action="/list">
+            <button type="submit" class="btn btn-primary" style="width: 24rem;" >List</button>
+        </form>
     </div>
 </body>
 </html>

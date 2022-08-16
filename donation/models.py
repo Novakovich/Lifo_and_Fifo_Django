@@ -2,9 +2,13 @@ from django.db import models
 from django.db.models import Sum, F
 
 
+class Request(models.Model):
+    request_id = models.IntegerField(default=0)
+
+
 class Office(models.Model):
     name = models.CharField(max_length=100)
-    office_count = models.IntegerField(null=True, default=0)
+    office_count = models.IntegerField(default=0)
     capacity = models.IntegerField(default=100)
 
     class Meta:
@@ -30,3 +34,4 @@ def full_storage(sender, instance, **kwargs):
     instance.office.office_count = state['amount__sum']
     instance.office.save()
 models.signals.post_save.connect(receiver=full_storage, sender=Donate)
+

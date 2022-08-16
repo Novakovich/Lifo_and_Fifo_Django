@@ -1,6 +1,6 @@
 from django.db import transaction
 from django.shortcuts import render
-from donation.models import Donate, Office
+from donation.models import Donate, Office, Request
 
 
 def home_page(request):
@@ -13,15 +13,25 @@ def home_page(request):
 
 def session_office(request):
     office_id = request.session["office"] = request.POST["office"]
-    return render(request, 'main.html')
+    place = Office.objects.get(id=office_id)
+    return render(request, 'main.html', {"place": place})
 
+def request(request):
+    Request.objects.create(
+        request_id=request.POST["request"],
+    )
+    n = Request.objects.order_by('id').last()
+    context = {
+        "request": range(n.request_id),
+    }
+    return render(request, 'number.html', context)
 
 @transaction.atomic
 def donate(request):
     Donate.objects.create(
         name=request.POST["name"],
         amount=request.POST["amount"],
-        office_id=request.session["office"]
+        office_id=request.session["office"],
     )
     return render(request, 'donate.html')
 
