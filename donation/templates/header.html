@@ -13,7 +13,7 @@
         {% csrf_token %}
             <p>
                 <select onchange="this.form.submit()" name="office" class="form-select" aria-label="Default select example">
-                    <<option>{{request.session.office}} {{place.name}}</option>
+                    <<option>{{request.session.office}}</option>
                     {% for item in office %}
                         <option value="{{ item.id }}"
                             {% if item.id == request.session.office %}

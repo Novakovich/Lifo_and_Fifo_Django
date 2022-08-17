@@ -2,13 +2,9 @@ from django.db import models
 from django.db.models import Sum, F
 
 
-class Request(models.Model):
-    request_id = models.IntegerField(default=0)
-
-
 class Office(models.Model):
     name = models.CharField(max_length=100)
-    office_count = models.IntegerField(default=0)
+    office_count = models.IntegerField(default=0, null=True)
     capacity = models.IntegerField(default=100)
 
     class Meta:
@@ -28,6 +24,15 @@ class Donate(models.Model):
     )
     office = models.ForeignKey(Office, on_delete=models.CASCADE, null=True)
 
+
+class Request(models.Model):
+    request_amount = models.IntegerField(default=0)
+
+
+class Request_item(models.Model):
+    name_item = models.CharField(max_length=100, default=0)
+    request_hash = models.ForeignKey(Request, on_delete=models.CASCADE, null=True)
+    office = models.ForeignKey(Office, on_delete=models.CASCADE, null=True)
 
 def full_storage(sender, instance, **kwargs):
     state = sender.objects.filter(state='Available', office=instance.office_id).aggregate(Sum('amount'))

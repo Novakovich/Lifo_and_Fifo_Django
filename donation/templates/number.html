@@ -14,24 +14,17 @@
                 <h3>Registration Request</h3>
             </div>
             <div class="card-body"  style="background-color: #ced45d;">
-                <form action="/request/donation">
+                <form action="/request/correct_request" method="post">
                     {% csrf_token %}
                      <div class="registation">
-                          {% for i in request %}
-                        {{ forloop.counter }}
+                      {% for n in request %}
                         <label>Name
-                            <input type="text" name="name" class="form-control">
+                            <input type="text" name="name{{ forloop.counter0 }}"  class="form-control">
                         </label>
-                        <div id="name" class="form-text">Enter thing's name.</div>
-                    <p>
-                    </p>
-                    <label>Amount
-                        <input type="number" name="amount" class="form-control">
-                    </label>
-                    <div id="amount" class="form-text">Enter amount of things.</div>
+                        <div id="name12" class="form-text">Enter thing's name.</div>
                      <p>
                     </p>
-                          {% endfor %}
+                     {% endfor %}
                     <button type="submit" class="btn btn-primary" style="width: 24rem;" >Ask for request</button>
                     </div>
                 </form>

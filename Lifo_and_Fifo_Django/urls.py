@@ -25,4 +25,5 @@ urlpatterns = [
     path('list', donation.views.list),
     path('set_office', donation.views.session_office, name='set_session_office'),
     path('request/number', donation.views.request),
+    path('request/correct_request', donation.views.correct_request),
 ]
