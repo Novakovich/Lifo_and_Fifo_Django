@@ -1,5 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
+<style>
+
+</style>
 <head>
     <meta charset="UTF-8">
     <title>Список</title>
@@ -8,48 +11,41 @@
 </head>
 <body>
     {% include 'header.html' %}
-    <table class="table">
+
+    <table class="table" >
         <thead>
         <tr>
             <th scope="col">Id</th>
             <th scope="col">Наименование</th>
             <th scope="col">Количество</th>
+            <th scope="col">Офис</th>
+            <th scope="col">Hash Запроса/Пожертвования</th>
+            <th scope="col">Количество вещей в запросе/пожертвовании </th>
             <th scope="col">Состояние</th>
-            <th scope="col">Офис</th>
         </tr>
         </thead>
         <tbody>
-        {% for each_donate in data %}
+        {% for each_item in data %}
         <tr>
-            <td>{{ each_donate.id }}</td>
-            <td>{{ each_donate.name }}</td>
-            <td>{{ each_donate.amount }}</td>
-            <td>{{ each_donate.state }}</td>
-            <td>{{ each_donate.office.name }}</td>
-        </tr>
-        {% endfor %}
-        </tbody>
-    </table>
-    <table class="table">
-        <thead>
-        <tr>
-            <th scope="col">Id</th>
-            <th scope="col">Наименование</th>
-            <th scope="col">Количество</th>
-            <th scope="col">Офис</th>
-            <th scope="col">Hash Запроса</th>
-            <th scope="col">Количество вещей в запросе </th>
-        </tr>
-        </thead>
-        <tbody>
-        {% for each_request in data_request %}
-        <tr>
-            <td>{{ each_request.id }}</td>
-            <td>{{ each_request.name_item }}</td>
-            <td>{{ each_request.amount_item }}</td>
-            <td>{{ each_request.office.name }}</td>
-            <td>{{ each_request.request_hash.id }}</td>
-            <td>{{ each_request.request_hash.request_amount }}</td>
+            <td>{{ each_item.id }}</td>
+            <td>{{ each_item.name_item }}</td>
+            <td>{{ each_item.amount_item }}</td>
+            <td>
+                {{ each_item.office.name }}
+                    {% if each_item.state == 'Available' or each_item.state == 'Booked'%}
+                <br>пожертвование
+                    {%else%}
+                <br>запрос
+                    {%endif%}
+            </td>
+            <td>{{ each_item.request_hash.id }}</td>
+            <td>
+                {{ each_item.request_hash.request_amount }}
+                {%if each_request.request_hash.request_amount == Null%}
+                {{ each_item.request_hash.donate_amount }}
+                {%endif%}
+            </td>
+            <td>{{ each_item.state }}</td>
         </tr>
         {% endfor %}
         </tbody>

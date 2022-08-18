@@ -11,33 +11,6 @@
 </head>
 <body>
     {% include 'header.html' %}
-    <div style="position: relative; padding: 10px; ">
-        <div class="card" style="width: 26rem;">
-            <div class="card-header" style="background-color: #c66ecc;">
-                <h3>Donation One By One</h3>
-            </div>
-            <div class="card-body" style="background-color: #ced45d;">
-                <form action="/donate" method="post">
-                    {% csrf_token %}
-                    <div class="registation">
-                        <label>Name
-                            <input type="text" name="name" class="form-control">
-                        </label>
-                        <div id="name" class="form-text">Enter thing's name.</div>
-                    </div>
-                    <p>
-                    </p>
-                    <label>Amount
-                        <input type="number" name="amount" class="form-control">
-                    </label>
-                    <div id="amount" class="form-text">Enter amount of things.</div>
-                     <p>
-                    </p>
-                    <button {% if disabled %} disabled {% endif %} type="submit" class="btn btn-primary" style="width: 24rem;">Donate</button>
-                </form>
-            </div>
-        </div>
-    </div>
     <div style="position: relative; padding: 10px;">
         <div class="card" style="width: 26rem;">
             <div class="card-header" style="background-color: #c66ecc;">
@@ -51,25 +24,25 @@
             </div>
             </div>
         </div>
-    <div style="position: absolute; margin-left: 520px; margin-top: -540px; padding: 10px;">
+    <div style="position: absolute; margin-left: 520px; margin-top: -185px; padding: 10px;">
         <div class="card" style="width: 26rem;">
             <div class="card-header" style="background-color: #c66ecc;">
                 <h3>Registering Multiple Donations</h3>
             </div>
             <div class="card-body" style="background-color: #ced45d;">
                 <h6 >Here you can donate multiple donations at the same time</h6>
-                <form action="/request/number" method="post" style="margin-top: 20px";>
+                <form action="request/donate_amount" method="post" style="margin-top: 20px";>
                     {% csrf_token %}
                     <label>Make A Donation
-                        <input type="number" name="request" class="form-control">
+                        <input type="number" name="donate" class="form-control">
                     </label>
                     <div id="donate" class="form-text">Enter the number of donations.</div>
-                    <button type="submit" class="btn btn-primary" style="width: 24rem;" >Request</button>
+                    <button {% if disabled %} disabled {% endif %} type="submit" class="btn btn-primary" style="width: 24rem;" >Donate</button>
                 </form>
                 </div>
             </div>
         </div>
-    <div style="position: absolute; margin-left: 520px; margin-top: -220px; padding: 10px;">
+    <div style="position: absolute; margin-left: 520px; margin-top: 135px; padding: 10px;">
         <div class="card" style="width: 26rem;">
             <div class="card-header" style="background-color: #c66ecc;">
                 <h3>Registration Request</h3>
@@ -91,7 +64,7 @@
     width: 25rem;
     position: absolute;
     margin-left: 1030px;
-    margin-top: -530px;
+    margin-top: -175px;
     padding: 10px;">
         <form action="/list">
             <button type="submit" class="btn btn-primary" style="width: 24rem;" >List</button>
