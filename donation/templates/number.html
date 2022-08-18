@@ -8,20 +8,26 @@
 </head>
 <body>
     {% include 'header.html' %}
-    <h5>Thank you</h5>
-     <div class="card" style="width: 26rem;">
+    <div style="position: relative; padding: 10px; ">
+     <div class="card" style= 'width: 26rem;'>
             <div class="card-header" style="background-color: #c66ecc;">
                 <h3>Registration Request</h3>
             </div>
             <div class="card-body"  style="background-color: #ced45d;">
                 <form action="/request/correct_request" method="post">
                     {% csrf_token %}
-                     <div class="registation">
+                     <div class="registration">
                       {% for n in request %}
-                        <label>Name
+                        <label>Name{{ forloop.counter }}
                             <input type="text" name="name{{ forloop.counter0 }}"  class="form-control">
                         </label>
-                        <div id="name12" class="form-text">Enter thing's name.</div>
+                        <div id="name_request" class="form-text">Enter thing's name.</div>
+                     <p>
+                         </p>
+                    <label>Amount
+                        <input type="number" name="amount{{ forloop.counter0 }}" class="form-control">
+                    </label>
+                    <div id="amount_request" class="form-text">Enter amount of things.</div>
                      <p>
                     </p>
                      {% endfor %}
@@ -30,8 +36,9 @@
                 </form>
                 </div>
          </div>
+        </div>
     <p>
-    <a href="/">Return main</a>
+    <a style="padding: 10px;" href="/">Return main</a>
     </p>
 </body>
 </html>

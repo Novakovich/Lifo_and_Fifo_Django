@@ -1,5 +1,10 @@
 <!DOCTYPE html>
 <html>
+<style>
+    .form-text, h6, label {
+        font-style: italic;
+    }
+</style>
 <head>
     <!-- CSS only -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
@@ -9,7 +14,7 @@
     <div style="position: relative; padding: 10px; ">
         <div class="card" style="width: 26rem;">
             <div class="card-header" style="background-color: #c66ecc;">
-                <h3>Donation Form</h3>
+                <h3>Donation One By One</h3>
             </div>
             <div class="card-body" style="background-color: #ced45d;">
                 <form action="/donate" method="post">
@@ -33,17 +38,45 @@
             </div>
         </div>
     </div>
-    <div style="position: absolute; margin-left: 520px; margin-top: -355px; padding: 10px;">
+    <div style="position: relative; padding: 10px;">
         <div class="card" style="width: 26rem;">
             <div class="card-header" style="background-color: #c66ecc;">
-                <h3>Registration Donating</h3>
+                <h3>Issuance Of Donations One By One</h3>
             </div>
             <div class="card-body" style="background-color: #ced45d;">
                 <form action="/request/donation">
                     {% csrf_token %}
                     <button type="submit" class="btn btn-primary" style="width: 24rem;" >Ask for donate</button>
                 </form>
-                <form action="/request/number" method="post" style="margin-top: 60px";>
+            </div>
+            </div>
+        </div>
+    <div style="position: absolute; margin-left: 520px; margin-top: -540px; padding: 10px;">
+        <div class="card" style="width: 26rem;">
+            <div class="card-header" style="background-color: #c66ecc;">
+                <h3>Registering Multiple Donations</h3>
+            </div>
+            <div class="card-body" style="background-color: #ced45d;">
+                <h6 >Here you can donate multiple donations at the same time</h6>
+                <form action="/request/number" method="post" style="margin-top: 20px";>
+                    {% csrf_token %}
+                    <label>Make A Donation
+                        <input type="number" name="request" class="form-control">
+                    </label>
+                    <div id="donate" class="form-text">Enter the number of donations.</div>
+                    <button type="submit" class="btn btn-primary" style="width: 24rem;" >Request</button>
+                </form>
+                </div>
+            </div>
+        </div>
+    <div style="position: absolute; margin-left: 520px; margin-top: -220px; padding: 10px;">
+        <div class="card" style="width: 26rem;">
+            <div class="card-header" style="background-color: #c66ecc;">
+                <h3>Registration Request</h3>
+            </div>
+            <div class="card-body" style="background-color: #ced45d;">
+                <h6 >Here you can make a request for several donations at the same time</h6>
+                <form action="/request/number" method="post" style="margin-top: 30px;">
                     {% csrf_token %}
                     <label>Ask for request
                         <input type="number" name="request" class="form-control">
@@ -51,14 +84,14 @@
                     <div id="request" class="form-text">Enter the number of donations requested.</div>
                     <button type="submit" class="btn btn-primary" style="width: 24rem;" >Request</button>
                 </form>
+                </div>
             </div>
         </div>
-    </div>
     <div class="card-body" style="background-color: #ced45d;
     width: 25rem;
     position: absolute;
     margin-left: 1030px;
-    margin-top: -340px;
+    margin-top: -530px;
     padding: 10px;">
         <form action="/list">
             <button type="submit" class="btn btn-primary" style="width: 24rem;" >List</button>

@@ -1,6 +1,8 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+    <meta charset="UTF-8">
+    <title>Список</title>
     <!-- CSS only -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
 </head>
@@ -9,11 +11,11 @@
     <table class="table">
         <thead>
         <tr>
-            <th scope="col">id</th>
-            <th scope="col">name</th>
-            <th scope="col">amount</th>
-            <th scope="col">state</th>
-            <th scope="col">office</th>
+            <th scope="col">Id</th>
+            <th scope="col">Наименование</th>
+            <th scope="col">Количество</th>
+            <th scope="col">Состояние</th>
+            <th scope="col">Офис</th>
         </tr>
         </thead>
         <tbody>
@@ -24,6 +26,30 @@
             <td>{{ each_donate.amount }}</td>
             <td>{{ each_donate.state }}</td>
             <td>{{ each_donate.office.name }}</td>
+        </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    <table class="table">
+        <thead>
+        <tr>
+            <th scope="col">Id</th>
+            <th scope="col">Наименование</th>
+            <th scope="col">Количество</th>
+            <th scope="col">Офис</th>
+            <th scope="col">Hash Запроса</th>
+            <th scope="col">Количество вещей в запросе </th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for each_request in data_request %}
+        <tr>
+            <td>{{ each_request.id }}</td>
+            <td>{{ each_request.name_item }}</td>
+            <td>{{ each_request.amount_item }}</td>
+            <td>{{ each_request.office.name }}</td>
+            <td>{{ each_request.request_hash.id }}</td>
+            <td>{{ each_request.request_hash.request_amount }}</td>
         </tr>
         {% endfor %}
         </tbody>
