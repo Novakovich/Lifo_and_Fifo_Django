@@ -18,19 +18,25 @@
                     {% csrf_token %}
                      <div class="registration">
                       {% for n in request %}
-                        <label>Name{{ forloop.counter }}
-                            <input type="text" name="name{{ forloop.counter0 }}"  class="form-control">
-                        </label>
-                        <div id="name_request" class="form-text">Enter thing's name.</div>
-                     <p>
+                         <p>
+                            <label>Name{{ forloop.counter }}
+                                <input type="text" name="name{{ forloop.counter0 }}"  class="form-control">
+                            </label>
+                            <div id="name_request" class="form-text">Enter thing's name.</div>
                          </p>
-                    <label>Amount
-                        <input type="number" name="amount{{ forloop.counter0 }}" class="form-control">
-                    </label>
-                    <div id="amount_request" class="form-text">Enter amount of things.</div>
-                     <p>
-                    </p>
-                     {% endfor %}
+                         <p>
+                            <label>Amount
+                                <input type="number" name="amount{{ forloop.counter0 }}" class="form-control">
+                            </label>
+                            <div id="amount_request" class="form-text">Enter amount of things.</div>
+                         </p>
+                         <p>
+                            <label>Details
+                                <textarea rows="5" cols="50" name="details{{ forloop.counter0 }}"></textarea>
+                            </label>
+                             <div id="description_request" class="form-text">Enter description of things.</div>
+                         </p>
+                      {% endfor %}
                     <button type="submit" class="btn btn-primary" style="width: 24rem;" >Donate</button>
                     </div>
                 </form>

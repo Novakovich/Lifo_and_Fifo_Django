@@ -37,12 +37,18 @@ class DonateItem(Item):
                              )
     request_hash = models.ForeignKey(Donate, on_delete=models.CASCADE, null=True)
 
+
 class RequestItem(Item):
     state = models.CharField(max_length=100, choices=(
          ('Requested', 'Requested'),
          ('Shipped', 'Shipped')), default='Requested'
                             )
     request_hash = models.ForeignKey(Request, on_delete=models.CASCADE, null=True)
+
+
+class Description(DonateItem):
+    details = models.TextField()
+
 
 def full_storage(sender, instance, **kwargs):
     state = sender.objects.filter(state='Available', office=instance.office_id).aggregate(Sum('amount_item'))

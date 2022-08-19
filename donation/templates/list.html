@@ -22,6 +22,7 @@
             <th scope="col">Hash Запроса/Пожертвования</th>
             <th scope="col">Количество вещей в запросе/пожертвовании </th>
             <th scope="col">Состояние</th>
+            <th scope="col">Описание</th>
         </tr>
         </thead>
         <tbody>
@@ -46,6 +47,7 @@
                 {%endif%}
             </td>
             <td>{{ each_item.state }}</td>
+            <td>{{ each_item.description.details }}</td>
         </tr>
         {% endfor %}
         </tbody>

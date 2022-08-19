@@ -1,6 +1,6 @@
 from django.db import transaction
 from django.shortcuts import render
-from donation.models import Donate, Office, Request, Item, DonateItem, RequestItem
+from donation.models import Donate, Office, Request, Item, DonateItem, RequestItem, Description
 from itertools import chain
 
 
@@ -80,10 +80,12 @@ def donate(request):
     req = Donate.objects.order_by('id').last()
     number_req = range(req.donate_amount)
     for n in number_req:
-        DonateItem.objects.create(
+        Description.objects.create(
             name_item=request.POST[f'name{n}'],
             amount_item=request.POST[f'amount{n}'],
             office_id=request.session["office"],
             request_hash_id=req.id,
+            details=request.POST[f'details{n}']
         )
+
     return render(request, 'donate.html')
