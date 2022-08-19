@@ -1,6 +1,6 @@
 from django.db import transaction
 from django.shortcuts import render
-from donation.models import Donate, Office, Request, Item, DonateItem, RequestItem, Description
+from donation.models import Donate, Office, Request, DonateItem, RequestItem, Description
 from itertools import chain
 
 
@@ -65,6 +65,7 @@ def list(request):
 def correct_request(request):
     req = Request.objects.order_by('id').last()
     number_req = range(req.request_amount)
+    available_items = DonateItem.objects.order_by('id').filter(state='Available')
     for i in number_req:
         RequestItem.objects.create(
             name_item=request.POST[f'name{i}'],
@@ -72,7 +73,12 @@ def correct_request(request):
             office_id=request.session["office"],
             request_hash_id=req.id,
         )
-    return render(request, 'correct_request.html')
+    request_items = RequestItem.objects.order_by('request_hash').filter(state='Requested')
+    context = {
+        "donate": available_items,
+        "request_items": request_items,
+    }
+    return render(request, 'correct_request.html', context)
 
 
 @transaction.atomic
@@ -87,5 +93,4 @@ def donate(request):
             request_hash_id=req.id,
             details=request.POST[f'details{n}']
         )
-
     return render(request, 'donate.html')

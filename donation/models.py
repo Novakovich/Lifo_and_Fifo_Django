@@ -2,6 +2,11 @@ from django.db import models
 from django.db.models import Sum, F
 
 
+class CompleteDonateManager(models.Manager):
+    def get_queryset(self):
+        return super().get_queryset().filter(state='Booked')
+
+
 class Office(models.Model):
     name = models.CharField(max_length=100)
     office_count = models.IntegerField(default=0, null=True)
@@ -36,6 +41,12 @@ class DonateItem(Item):
         ('Booked', 'Booked')), default='Available'
                              )
     request_hash = models.ForeignKey(Donate, on_delete=models.CASCADE, null=True)
+
+
+class CompleteDonate(DonateItem):
+    class Meta:
+        proxy = True
+    object = CompleteDonateManager()
 
 
 class RequestItem(Item):
