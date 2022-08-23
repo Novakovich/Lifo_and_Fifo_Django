@@ -21,8 +21,10 @@
             <th scope="col">Офис</th>
             <th scope="col">Hash Запроса/Пожертвования</th>
             <th scope="col">Количество вещей в запросе/пожертвовании </th>
-            <th scope="col">Состояние</th>
+            <th scope="col">Доступонсть</th>
             <th scope="col">Описание</th>
+            <th scope="col">Состояние</th>
+            <th scope="col">Место на полке</th>
         </tr>
         </thead>
         <tbody>
@@ -48,6 +50,8 @@
             </td>
             <td>{{ each_item.state }}</td>
             <td>{{ each_item.description.details }}</td>
+            <td>{{ each_item.description.condition}}</td>
+            <td>{{ each_item.description.place }}</td>
         </tr>
         {% endfor %}
         </tbody>

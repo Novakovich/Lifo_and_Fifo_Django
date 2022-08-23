@@ -1,6 +1,11 @@
 from django.db import models
 from django.db.models import Sum, F
 
+CONDITION_CHOICES = [
+    ('NEW', 'New.'),
+    ('USED', 'Used'),
+]
+
 
 class CompleteDonateManager(models.Manager):
     def get_queryset(self):
@@ -59,6 +64,8 @@ class RequestItem(Item):
 
 class Description(DonateItem):
     details = models.TextField()
+    condition = models.CharField(max_length=4, choices=CONDITION_CHOICES, default='USED')
+    place = models.IntegerField(default=0)
 
 
 def full_storage(sender, instance, **kwargs):

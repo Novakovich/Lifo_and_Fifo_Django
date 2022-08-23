@@ -1,5 +1,6 @@
 from django.db import transaction
 from django.shortcuts import render
+from donation.forms import DescribedItem
 from donation.models import Donate, Office, Request, DonateItem, RequestItem, Description
 from itertools import chain
 
@@ -29,14 +30,15 @@ def request(request):
         n = Request.objects.order_by('id').last()
         context = {
             "request": range(n.request_amount),
-        }
+                }
         return render(request, 'number.html', context)
     else:
         Donate.objects.create(donate_amount=request.POST["donate"])
         n = Donate.objects.order_by('id').last()
         context = {
-            "request": range(n.donate_amount),
-        }
+            "donates": range(n.donate_amount),
+            'form': DescribedItem(),
+                }
         return render(request, 'donate_amount.html', context)
 
 
@@ -53,7 +55,7 @@ def donation(request):
 def list(request):
     context = {
         'data': []
-               }
+            }
     donate = DonateItem.objects.all()
     req = RequestItem.objects.all()
     context['data'] = chain(donate, req)
@@ -77,20 +79,20 @@ def correct_request(request):
     context = {
         "donate": available_items,
         "request_items": request_items,
-    }
+            }
     return render(request, 'correct_request.html', context)
 
 
-@transaction.atomic
-def donate(request):
-    req = Donate.objects.order_by('id').last()
-    number_req = range(req.donate_amount)
-    for n in number_req:
-        Description.objects.create(
-            name_item=request.POST[f'name{n}'],
-            amount_item=request.POST[f'amount{n}'],
-            office_id=request.session["office"],
-            request_hash_id=req.id,
-            details=request.POST[f'details{n}']
-        )
-    return render(request, 'donate.html')
+def described_item(request, **kwargs):
+    if request.method == 'POST':
+        form = DescribedItem(request.POST, request.FILES)
+        req = Donate.objects.order_by('-id').first()
+        if form.is_valid():
+            f = DescribedItem(request.POST)
+            new_item = f.save(commit=False)
+            new_item.office_id = request.session["office"]
+            new_item.request_hash_id = req.id
+            new_item.save()
+            f.save_m2m()
+            return render(request, 'donate.html')
+

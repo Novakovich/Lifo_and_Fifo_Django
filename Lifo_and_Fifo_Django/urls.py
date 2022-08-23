@@ -17,13 +17,14 @@ from django.contrib import admin
 from django.urls import path
 import donation.views
 
+app_name = 'donation'
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', donation.views.home_page, name='main'),
-    path('request/donate', donation.views.donate),
+    path('request/donate', donation.views.described_item),
     path('request/donate_amount', donation.views.request),
     path('request/donation', donation.views.donation),
-    path('list', donation.views.list),
+    path('list', donation.views.list, name='list'),
     path('set_office', donation.views.session_office, name='set_session_office'),
     path('request/number', donation.views.request),
     path('request/correct_request', donation.views.correct_request),

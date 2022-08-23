@@ -2,49 +2,31 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Request</title>
+    <title>Donate</title>
    <!-- CSS only -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
 </head>
 <body>
+    {% load crispy_forms_tags %}
     {% include 'header.html' %}
-    <div style="position: relative; padding: 10px; ">
-     <div class="card" style= 'width: 26rem;'>
+    <div style="position: absolute; margin-left: 520px; margin-top: 0px; padding: 10px;">
+        <div class="card" style="width: 26rem;">
             <div class="card-header" style="background-color: #c66ecc;">
-                <h3>Registration Donation</h3>
+                <h3>Donations</h3>
             </div>
-            <div class="card-body"  style="background-color: #ced45d;">
-                <form action="/request/donate" method="post">
-                    {% csrf_token %}
-                     <div class="registration">
-                      {% for n in request %}
-                         <p>
-                            <label>Name{{ forloop.counter }}
-                                <input type="text" name="name{{ forloop.counter0 }}"  class="form-control">
-                            </label>
-                            <div id="name_request" class="form-text">Enter thing's name.</div>
-                         </p>
-                         <p>
-                            <label>Amount
-                                <input type="number" name="amount{{ forloop.counter0 }}" class="form-control">
-                            </label>
-                            <div id="amount_request" class="form-text">Enter amount of things.</div>
-                         </p>
-                         <p>
-                            <label>Details
-                                <textarea rows="5" cols="50" name="details{{ forloop.counter0 }}"></textarea>
-                            </label>
-                             <div id="description_request" class="form-text">Enter description of things.</div>
-                         </p>
-                      {% endfor %}
-                    <button type="submit" class="btn btn-primary" style="width: 24rem;" >Donate</button>
-                    </div>
-                </form>
-                </div>
-         </div>
+            <div class="card-body" style="background-color: #ced45d;">
+            <form action="/request/donate" method="post" style="width: 20rem;" enctype="multipart/form-data">
+                {% csrf_token %}
+                {{ form|crispy }}
+                {{donates}}
+                <button type="submit">submit</button>
+            </form>
+
+            </div>
         </div>
+    </div>
     <p>
-    <a style="padding: 10px;" href="/">Return main</a>
+        <a style="padding: 10px;" href="/">Return main</a>
     </p>
 </body>
 </html>
