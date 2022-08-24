@@ -18,10 +18,8 @@
             <form action="/request/donate" method="post" style="width: 20rem;" enctype="multipart/form-data">
                 {% csrf_token %}
                 {{ form|crispy }}
-                {{donates}}
-                <button type="submit">submit</button>
+                <button type="submit" class="btn btn-primary" style="width: 24rem;" >Отправить данные</button>
             </form>
-
             </div>
         </div>
     </div>

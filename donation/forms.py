@@ -1,5 +1,5 @@
-from django.forms import ModelForm, Textarea
-from .models import Description
+from django.forms import formset_factory, Textarea
+from .models import Description, Donate
 from django import forms
 
 
@@ -11,4 +11,6 @@ class DescribedItem(forms.ModelForm):
         widgets = {
             'details': Textarea(attrs={'rows': 10}),
         }
+
+DescribedItemFormSet = formset_factory(DescribedItem)
 

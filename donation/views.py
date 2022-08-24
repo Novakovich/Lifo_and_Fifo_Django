@@ -1,7 +1,8 @@
 from django.db import transaction
+from django.forms import formset_factory
 from django.shortcuts import render
-from donation.forms import DescribedItem
-from donation.models import Donate, Office, Request, DonateItem, RequestItem, Description
+from donation.forms import DescribedItem, DescribedItemFormSet
+from donation.models import Donate, Office, Request, DonateItem, RequestItem
 from itertools import chain
 
 
@@ -27,17 +28,19 @@ def session_office(request):
 def request(request):
     if request.POST.get('request'):
         Request.objects.create(request_amount=request.POST["request"])
-        n = Request.objects.order_by('id').last()
+        n = Request.objects.order_by('-id').first()
         context = {
             "request": range(n.request_amount),
                 }
         return render(request, 'number.html', context)
     else:
         Donate.objects.create(donate_amount=request.POST["donate"])
-        n = Donate.objects.order_by('id').last()
+        n = Donate.objects.order_by('-id').first()
+        how_many = n.donate_amount
+        DescribedItemFormSet = formset_factory(DescribedItem, extra=how_many)
+        formset = DescribedItemFormSet()
         context = {
-            "donates": range(n.donate_amount),
-            'form': DescribedItem(),
+            'form': formset,
                 }
         return render(request, 'donate_amount.html', context)
 
@@ -65,7 +68,7 @@ def list(request):
 
 @transaction.atomic
 def correct_request(request):
-    req = Request.objects.order_by('id').last()
+    req = Request.objects.order_by('-id').first()
     number_req = range(req.request_amount)
     available_items = DonateItem.objects.order_by('id').filter(state='Available')
     for i in number_req:
@@ -84,15 +87,14 @@ def correct_request(request):
 
 
 def described_item(request, **kwargs):
+    req = Donate.objects.order_by('-id').first()
     if request.method == 'POST':
-        form = DescribedItem(request.POST, request.FILES)
-        req = Donate.objects.order_by('-id').first()
-        if form.is_valid():
-            f = DescribedItem(request.POST)
-            new_item = f.save(commit=False)
-            new_item.office_id = request.session["office"]
-            new_item.request_hash_id = req.id
-            new_item.save()
-            f.save_m2m()
-            return render(request, 'donate.html')
-
+        formset = DescribedItemFormSet(request.POST, request.FILES)
+        if formset.is_valid():
+            for form in formset:
+                new_item = form.save(commit=False)
+                new_item.office_id = request.session["office"]
+                new_item.request_hash_id = req.id
+                new_item.save()
+                form.save_m2m()
+        return render(request, 'donate.html')
