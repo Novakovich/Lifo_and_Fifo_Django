@@ -2,8 +2,8 @@ from django.db import models
 from django.db.models import Sum, F
 
 CONDITION_CHOICES = [
-    ('NEW', 'New.'),
-    ('USED', 'Used'),
+    ('New', 'New'),
+    ('Used', 'Used'),
 ]
 
 
@@ -32,8 +32,8 @@ class Donate(models.Model):
 
 
 class Item(models.Model):
-    name_item = models.CharField(max_length=100, default=0)
-    amount_item = models.IntegerField(default=0)
+    name_item = models.CharField(max_length=100)
+    amount_item = models.IntegerField()
     office = models.ForeignKey(Office, on_delete=models.CASCADE, null=True)
 
     class Meta:
@@ -64,8 +64,8 @@ class RequestItem(Item):
 
 class Description(DonateItem):
     details = models.TextField()
-    condition = models.CharField(max_length=4, choices=CONDITION_CHOICES, default='USED')
-    place = models.IntegerField(default=0)
+    condition = models.CharField(max_length=4, choices=CONDITION_CHOICES, default='New')
+    place = models.IntegerField()
 
 
 def full_storage(sender, instance, **kwargs):

@@ -1,7 +1,7 @@
 from django.db import transaction
 from django.forms import formset_factory
 from django.shortcuts import render
-from donation.forms import DescribedItem, DescribedItemFormSet
+from donation.forms import DescribedItem, DescribedItemFormSet, SearchingItem
 from donation.models import Donate, Office, Request, DonateItem, RequestItem
 from itertools import chain
 
@@ -15,6 +15,7 @@ def home_page(request):
     context = {
         "office": Office.objects.all(),
         "disabled": office >= state.capacity,
+        "criterion": SearchingItem(),
     }
     return render(request, 'main.html', context)
 
@@ -98,3 +99,20 @@ def described_item(request, **kwargs):
                 new_item.save()
                 form.save_m2m()
         return render(request, 'donate.html')
+
+
+def criterion(request, **kwargs):
+    queryset = DonateItem.objects.all()
+    if request.method == 'GET':
+        form = SearchingItem(request.GET)
+        if form.is_valid():
+            get_name = request.GET['name_item']
+            get_amount = request.GET['amount_item']
+            get_condition = request.GET['condition']
+            name = queryset.order_by('name_item').filter(name_item=get_name)
+            context = {
+                "donate": name,
+                "amount": int(get_amount),
+                "condition": get_condition,
+                     }
+            return render(request, 'criterion_list.html', context)

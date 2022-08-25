@@ -11,6 +11,7 @@
 </head>
 <body>
     {% include 'header.html' %}
+    {% load crispy_forms_tags %}
     <div style="position: relative; padding: 10px;">
         <div class="card" style="width: 26rem;">
             <div class="card-header" style="background-color: #c66ecc;">
@@ -70,5 +71,16 @@
             <button type="submit" class="btn btn-primary" style="width: 24rem;" >List</button>
         </form>
     </div>
+    <div style="position: absolute;  margin-top: 0px; padding: 10px;">
+        <div class="card" style="width: 26rem;">
+            <div class="card-header" style="background-color: #c66ecc;">
+                <h3>Search</h3>
+            </div>
+            <div class="card-body" style="background-color: #ced45d;">
+            <form action="/request/criterion_list" method="get" style="width: 20rem;" enctype="multipart/form-data">
+                {% csrf_token %}
+                {{ criterion|crispy }}
+                <button type="submit" class="btn btn-primary" style="width: 20rem;">Поиск по критериям</button>
+            </form>
 </body>
 </html>
