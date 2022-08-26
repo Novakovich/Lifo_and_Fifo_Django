@@ -4,6 +4,9 @@
     .form-text, h6, label {
         font-style: italic;
     }
+    .card {
+        box-shadow: 10px 10px 20px rgba(0,0,8,0.5);
+    }
 </style>
 <head>
     <!-- CSS only -->
@@ -61,7 +64,9 @@
             </div>
         </div>
     </div>
-    <div class="card-body" style="background-color: #ced45d;
+    <div class="card-body" style="
+    box-shadow: 10px 10px 20px rgba(0,0,0,0.5);
+    background-color: #ced45d;
     width: 25rem;
     position: absolute;
     margin-left: 1030px;
@@ -78,9 +83,23 @@
             </div>
             <div class="card-body" style="background-color: #ced45d;">
             <form action="/request/criterion_list" method="get" style="width: 20rem;" enctype="multipart/form-data">
-                {% csrf_token %}
                 {{ criterion|crispy }}
                 <button type="submit" class="btn btn-primary" style="width: 20rem;">Поиск по критериям</button>
             </form>
+            </div>
+        </div>
+    </div>
+    <div class="card-body" style="
+        box-shadow: 10px 10px 20px rgba(0,0,0,0.5);
+        background-color: #ced45d;
+        width: 25rem;
+        position: absolute;
+        margin-left: 1030px;
+        margin-top: -105px;
+        padding: 10px;">
+        <form action="/admin">
+            <button type="submit" class="btn btn-primary" style="width: 24rem;" >Admin</button>
+        </form>
+    </div>
 </body>
 </html>
