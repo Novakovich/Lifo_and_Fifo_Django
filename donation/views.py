@@ -1,6 +1,6 @@
 from django.db import transaction
 from django.forms import formset_factory
-from django.shortcuts import render
+from django.shortcuts import render, redirect, reverse
 from donation.forms import DescribedItem, DescribedItemFormSet, SearchingItem
 from donation.models import Donate, Office, Request, DonateItem, RequestItem
 from itertools import chain
@@ -23,7 +23,7 @@ def home_page(request):
 def session_office(request):
     office_id = request.session["office"] = request.POST["office"]
     place = Office.objects.get(id=office_id)
-    return render(request, 'main.html', {"place": place})
+    return redirect(reverse('main'), {"place": place})
 
 
 def request(request):
