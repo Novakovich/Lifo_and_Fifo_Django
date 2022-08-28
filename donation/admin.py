@@ -1,5 +1,5 @@
 from django.contrib import admin
-from donation.models import RequestItem, Description
+from donation.models import RequestItem, Description, Donate, DonateItem
 
 
 @admin.action(description='Mark selected items as used')
@@ -42,3 +42,17 @@ class RequestItemAdmin(admin.ModelAdmin):
 
 
 admin.site.register(RequestItem, RequestItemAdmin)
+
+
+class DescriptionInline(admin.TabularInline):
+    model = Description
+
+
+class DonateAdmin(admin.ModelAdmin):
+    list_display = ('donate_amount', 'id',)
+    fields = ('donate_amount', )
+    readonly_fields = ('id',)
+    inlines = [DescriptionInline]
+
+
+admin.site.register(Donate, DonateAdmin)
