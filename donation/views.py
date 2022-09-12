@@ -98,7 +98,10 @@ def described_item(request, **kwargs):
                 new_item.request_hash_id = req.id
                 new_item.save()
                 form.save_m2m()
-        return render(request, 'donate.html')
+            context = {
+                "request_hash_id": req.id,
+            }
+        return render(request, 'donate.html', context)
 
 
 def criterion(request, **kwargs):

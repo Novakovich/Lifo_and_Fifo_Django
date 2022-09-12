@@ -12,13 +12,13 @@
     }
 
 </style>
-<nav class="navbar navbar-dark bg-primary">
-    <div class="container-fluid">
-        <a class="navbar-brand" href="/"><img src="{% static 'Без имени.png'%}" alt="" width="120" height="36" class="d-inline-block align-text-top"></a>
+<nav class="navbar" style="height: 70px;  background: #00b0d8;">
+    <div class="container">
+        <a class="navbar-brand"  style="position: relative; left: -100px;" href="/"><img src="{% static 'Без имени.png'%}" alt="" width="120" height="36" class="d-inline-block align-text-top"></a>
         <form action="{% url 'set_session_office' %}" method="post">
         {% csrf_token %}
             <p>
-                <select onchange="this.form.submit()" name="office" class="form-select" aria-label="Default select example">
+                <select style="position: relative; left: -400px; top: 10px;" onchange="this.form.submit()" name="office" class="form-select" aria-label="Default select example">
                     <option>{{request.session.office}}</option>
                     {% for item in office %}
                         <option value="{{ item.id }}"
@@ -29,6 +29,7 @@
                 </select>
             </p>
         </form>
-        <a class="navbar-brand" href="/list">List</a>
+        <a class="navbar-brand" style="position: relative; right: -410px;"href="/list">List</a>
+        <a class="navbar-brand" style="position: relative; right: -100px;"href="/admin">Admin</a>
     </div>
 </nav>
