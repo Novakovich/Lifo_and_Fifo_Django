@@ -25,10 +25,12 @@ class Office(models.Model):
 
 class Request(models.Model):
     request_amount = models.IntegerField(default=0)
+    datetime = models.DateTimeField(auto_now_add=True)
 
 
 class Donate(models.Model):
     donate_amount = models.IntegerField(default=0)
+    datetime = models.DateTimeField(auto_now_add=True)
 
 
 class Item(models.Model):

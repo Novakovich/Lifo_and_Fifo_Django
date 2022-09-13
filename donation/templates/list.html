@@ -25,6 +25,7 @@
             <th scope="col">Описание</th>
             <th scope="col">Состояние</th>
             <th scope="col">Место на полке</th>
+            <th scope="col">Дата и время</th>
         </tr>
         </thead>
         <tbody>
@@ -52,6 +53,7 @@
             <td>{{ each_item.description.details }}</td>
             <td>{{ each_item.description.condition}}</td>
             <td>{{ each_item.description.place }}</td>
+            <td>{{ each_item.request_hash.datetime }}</td>
         </tr>
         {% endfor %}
         </tbody>
