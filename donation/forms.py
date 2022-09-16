@@ -6,7 +6,7 @@ from django import forms
 class DescribedItem(forms.ModelForm):
     class Meta:
         model = Description
-        exclude = ('request_hash', 'state', 'office')
+        exclude = ('donate_uuid', 'state', 'office')
         widgets = {
             'details': Textarea(attrs={'rows': 10}),
         }

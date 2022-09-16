@@ -36,7 +36,7 @@ def request(request):
         return render(request, 'number.html', context)
     else:
         Donate.objects.create(donate_amount=request.POST["donate"])
-        n = Donate.objects.order_by('-id').first()
+        n = Donate.objects.order_by('-datetime').first()
         how_many = n.donate_amount
         DescribedItemFormSet = formset_factory(DescribedItem, extra=how_many)
         formset = DescribedItemFormSet()
@@ -88,18 +88,18 @@ def correct_request(request):
 
 
 def described_item(request, **kwargs):
-    req = Donate.objects.order_by('-id').first()
+    req = Donate.objects.order_by('-datetime').first()
     if request.method == 'POST':
         formset = DescribedItemFormSet(request.POST, request.FILES)
         if formset.is_valid():
             for form in formset:
                 new_item = form.save(commit=False)
                 new_item.office_id = request.session["office"]
-                new_item.request_hash_id = req.id
+                new_item.donate_uuid = req
                 new_item.save()
                 form.save_m2m()
         context = {
-            "request_hash_id": req.id,
+            "request_hash_id": req,
         }
         return render(request, 'donate.html', context)
 

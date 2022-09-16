@@ -1,3 +1,4 @@
+import uuid
 from django.db import models
 from django.db.models import Sum, F
 
@@ -31,6 +32,7 @@ class Request(models.Model):
 class Donate(models.Model):
     donate_amount = models.IntegerField(default=0)
     datetime = models.DateTimeField(auto_now_add=True)
+    id = models.UUIDField(default=uuid.uuid4, unique=True, primary_key=True)
 
 
 class Item(models.Model):
@@ -47,7 +49,7 @@ class DonateItem(Item):
         ('Available', 'Available'),
         ('Booked', 'Booked')), default='Available'
                              )
-    request_hash = models.ForeignKey(Donate, on_delete=models.CASCADE, null=True)
+    donate_uuid = models.ForeignKey(Donate, on_delete=models.CASCADE, db_column='donate_uuid')
 
 
 class CompleteDonate(DonateItem):
@@ -62,6 +64,7 @@ class RequestItem(Item):
          ('Shipped', 'Shipped')), default='Requested'
                             )
     request_hash = models.ForeignKey(Request, on_delete=models.CASCADE, null=True)
+
 
 
 class Description(DonateItem):

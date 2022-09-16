@@ -42,18 +42,27 @@
                 <br>запрос
                     {%endif%}
             </td>
-            <td>{{ each_item.request_hash.id }}</td>
+            <td>{{ each_item.request_hash.id }}
+                {%if each_request.request_hash.request_amount == Null%}
+                {{ each_item.donate_uuid.id }}
+                {%endif%}
+            </td>
             <td>
                 {{ each_item.request_hash.request_amount }}
                 {%if each_request.request_hash.request_amount == Null%}
-                {{ each_item.request_hash.donate_amount }}
+                {{ each_item.donate_uuid.donate_amount }}
                 {%endif%}
             </td>
             <td>{{ each_item.state }}</td>
             <td>{{ each_item.description.details }}</td>
             <td>{{ each_item.description.condition}}</td>
             <td>{{ each_item.description.place }}</td>
-            <td>{{ each_item.request_hash.datetime }}</td>
+            <td>
+                {{ each_item.request_hash.datetime }}
+                {%if each_item.request_hash.datetime == Null%}
+                {{ each_item.donate_uuid.datetime }}
+                {%endif%}
+            </td>
         </tr>
         {% endfor %}
         </tbody>
