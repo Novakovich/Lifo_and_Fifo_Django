@@ -66,7 +66,6 @@ class RequestItem(Item):
     request_hash = models.ForeignKey(Request, on_delete=models.CASCADE, null=True)
 
 
-
 class Description(DonateItem):
     details = models.TextField()
     condition = models.CharField(max_length=4, choices=CONDITION_CHOICES, default='New')
