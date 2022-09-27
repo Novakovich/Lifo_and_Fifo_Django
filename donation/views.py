@@ -28,16 +28,14 @@ def session_office(request):
 
 def request(request):
     if request.POST.get('request'):
-        Request.objects.create(request_amount=request.POST["request"])
-        n = Request.objects.order_by('-id').first()
+        n = Request.objects.create(request_amount=request.POST["request"])
         context = {
-            "request": range(n.request_amount),
+            "request": range(int(n.request_amount)),
                 }
         return render(request, 'number.html', context)
     else:
-        Donate.objects.create(donate_amount=request.POST["donate"])
-        n = Donate.objects.order_by('-datetime').first()
-        how_many = n.donate_amount
+        n = Donate.objects.create(donate_amount=request.POST["donate"])
+        how_many = int(n.donate_amount)
         DescribedItemFormSet = formset_factory(DescribedItem, extra=how_many)
         formset = DescribedItemFormSet()
         context = {
