@@ -18,7 +18,7 @@
         <form action="{% url 'set_session_office' %}" method="post">
         {% csrf_token %}
             <p>
-                <select style="position: relative; left: -400px; top: 10px;" onchange="this.form.submit()" name="office" class="form-select" aria-label="Default select example">
+                <select style="position: relative; left: -300px; top: 10px;" onchange="this.form.submit()" name="office" class="form-select" aria-label="Default select example">
                     <option>{{request.session.office}}</option>
                     {% for item in office %}
                         <option value="{{ item.id }}"
@@ -29,7 +29,8 @@
                 </select>
             </p>
         </form>
-        <a class="navbar-brand" style="position: relative; right: -410px;" href="/list">List</a>
-        <a class="navbar-brand" style="position: relative; right: -100px;" href="/admin">Admin</a>
+        <a class="navbar-brand" style="position: relative; right: -510px;" href="/list">List</a>
+        <a class="navbar-brand" style="position: relative; right: -150px;" href="/admin">Admin</a>
+        <a class="navbar-brand"  href="/api">API</a>
     </div>
 </nav>
