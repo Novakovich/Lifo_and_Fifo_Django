@@ -1,5 +1,4 @@
 from rest_framework import serializers
-
 from donation.models import Description, DonateItem
 
 
