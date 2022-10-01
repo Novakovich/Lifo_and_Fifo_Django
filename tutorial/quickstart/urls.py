@@ -6,7 +6,7 @@ from rest_framework import routers
 app_name = 'quickstart'
 router = routers.DefaultRouter()
 router.register(r'Description', views.DescriptionViewSet)
-router.register(r'Donate', views.DonateItemViewSet)
+router.register(r'DonateItem', views.DonateItemViewSet)
 
 
 urlpatterns = [
