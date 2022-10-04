@@ -14,7 +14,7 @@
                 <h3>Registration Request</h3>
             </div>
             <div class="card-body"  style="background-color: #ced45d;">
-                <form action="/request/correct_request" method="post">
+                <form action="/request/correct_request/{{req_id}}" method="post">
                     {% csrf_token %}
                      <div class="registration">
                       {% for n in request %}

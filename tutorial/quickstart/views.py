@@ -1,4 +1,4 @@
-from rest_framework import viewsets
+from rest_framework import viewsets, generics
 from rest_framework import permissions
 from donation.models import Description, DonateItem
 from tutorial.quickstart.serializers import DescriptionSerializer, DonateItemSerializer
@@ -13,4 +13,10 @@ class DescriptionViewSet(viewsets.ModelViewSet):
 class DonateItemViewSet(viewsets.ModelViewSet):
     queryset = DonateItem.objects.all()
     serializer_class = DonateItemSerializer
+    permission_classes = [permissions.IsAuthenticated]
+
+
+class DescriptionList(generics.ListCreateAPIView):
+    queryset = Description.objects.all()
+    serializer_class = DescriptionSerializer
     permission_classes = [permissions.IsAuthenticated]

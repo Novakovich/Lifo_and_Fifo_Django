@@ -31,6 +31,7 @@ def request(request):
         n = Request.objects.create(request_amount=request.POST["request"])
         context = {
             "request": range(int(n.request_amount)),
+            "req_id": n.id,
                 }
         return render(request, 'number.html', context)
     else:
@@ -66,8 +67,8 @@ def list(request):
 
 
 @transaction.atomic
-def correct_request(request):
-    req = Request.objects.order_by('-id').first()
+def correct_request(request, req_id):
+    req = Request.objects.get(id=req_id)
     number_req = range(req.request_amount)
     available_items = DonateItem.objects.order_by('id').filter(state='Available')
     for i in number_req:

@@ -14,7 +14,7 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path, include
+from django.urls import path, include, re_path
 import donation.views
 
 app_name = 'donation'
@@ -27,8 +27,7 @@ urlpatterns = [
     path('list', donation.views.list, name='list'),
     path('set_office', donation.views.session_office, name='set_session_office'),
     path('request/number', donation.views.request),
-    path('request/correct_request', donation.views.correct_request),
+    re_path('request/correct_request/(?P<req_id>[\d-]+)', donation.views.correct_request),
     path('request/criterion_list', donation.views.criterion),
-    path('api-auth/', include('rest_framework.urls')),
     path('api/', include('tutorial.quickstart.urls', namespace='api')),
 ]
