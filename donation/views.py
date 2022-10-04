@@ -1,3 +1,4 @@
+import emoji
 from django.db import transaction
 from django.forms import formset_factory
 from django.shortcuts import render, redirect, reverse
@@ -99,6 +100,7 @@ def described_item(request, **kwargs):
                 form.save_m2m()
         context = {
             "request_hash_id": req,
+            "heart": (emoji.emojize(":red_heart:", variant="emoji_type"))
         }
         return render(request, 'donate.html', context)
 
