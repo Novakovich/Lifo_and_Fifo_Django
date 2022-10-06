@@ -19,4 +19,9 @@ class DonateItemViewSet(viewsets.ModelViewSet):
 class DescriptionList(generics.ListCreateAPIView):
     queryset = Description.objects.all()
     serializer_class = DescriptionSerializer
-    permission_classes = [permissions.IsAuthenticated]
+
+    def get_queryset(self):
+        return super().get_queryset().filter(donate_uuid=self.kwargs['donate_uuid'])
+
+    def perform_create(self, serializer):
+        serializer.save(donate_uuid_id=self.kwargs['donate_uuid'])

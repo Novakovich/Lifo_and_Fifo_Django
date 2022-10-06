@@ -1,4 +1,4 @@
-from django.urls import path, include
+from django.urls import path, include, re_path
 from tutorial.quickstart import views
 from rest_framework import routers
 
@@ -12,5 +12,5 @@ router.register(r'DonateItem', views.DonateItemViewSet)
 urlpatterns = [
     path('', include(router.urls)),
     path('api-auth/', include('rest_framework.urls', namespace='rest_framework')),
-    path('api/', views.DescriptionList.as_view()),
+    re_path('description/(?P<donate_uuid>[0-9a-f-]+)', views.DescriptionList.as_view()),
 ]
