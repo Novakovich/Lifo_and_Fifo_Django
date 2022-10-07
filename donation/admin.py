@@ -8,7 +8,7 @@ def make_used(modeladmin, request, queryset):
 
 
 class DescriptionAdmin(admin.ModelAdmin):
-    list_display = ('name_item', 'amount_item', 'donate_uuid_id', 'state', 'condition', 'id', 'photo')
+    list_display = ('name_item', 'amount_item', 'donate_uuid_id', 'state', 'condition', 'id', 'photo', 'office_id')
     search_fields = ['donate_uuid__exact']
     list_filter = ('state',)
     fieldsets = (
@@ -16,7 +16,7 @@ class DescriptionAdmin(admin.ModelAdmin):
             'fields': ('name_item',)
         }),
         ('Additional info', {
-            'fields': ('amount_item', 'donate_uuid', 'state', 'condition', 'photo')
+            'fields': ('amount_item', 'donate_uuid', 'state', 'condition', 'photo', 'office', 'place')
         }),
     )
     readonly_fields = ('donate_uuid_id',)

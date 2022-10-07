@@ -1,6 +1,8 @@
 import uuid
 from django.db import models
 from django.db.models import Sum, F
+from django.utils import timezone
+
 
 CONDITION_CHOICES = [
     ('New', 'New'),
@@ -26,12 +28,12 @@ class Office(models.Model):
 
 class Request(models.Model):
     request_amount = models.IntegerField(default=0)
-    datetime = models.DateTimeField(auto_now_add=True)
+    datetime = models.DateTimeField(default=timezone.now)
 
 
 class Donate(models.Model):
     donate_amount = models.IntegerField(default=0)
-    datetime = models.DateTimeField(auto_now_add=True)
+    datetime = models.DateTimeField(default=timezone.now)
     id = models.UUIDField(default=uuid.uuid4, unique=True, primary_key=True)
 
 
