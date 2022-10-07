@@ -8,7 +8,7 @@ def make_used(modeladmin, request, queryset):
 
 
 class DescriptionAdmin(admin.ModelAdmin):
-    list_display = ('name_item', 'amount_item', 'donate_uuid_id', 'state', 'condition', 'id')
+    list_display = ('name_item', 'amount_item', 'donate_uuid_id', 'state', 'condition', 'id', 'photo')
     search_fields = ['donate_uuid__exact']
     list_filter = ('state',)
     fieldsets = (
@@ -16,10 +16,10 @@ class DescriptionAdmin(admin.ModelAdmin):
             'fields': ('name_item',)
         }),
         ('Additional info', {
-            'fields': ('amount_item', 'donate_uuid', 'state', 'condition',)
+            'fields': ('amount_item', 'donate_uuid', 'state', 'condition', 'photo')
         }),
     )
-    readonly_fields = ('donate_uuid',)
+    readonly_fields = ('donate_uuid_id',)
     actions = [make_used]
 
 
@@ -49,7 +49,7 @@ class DescriptionInline(admin.TabularInline):
 
 
 class DonateAdmin(admin.ModelAdmin):
-    list_display = ('donate_amount', 'id',)
+    list_display = ('donate_amount', 'id')
     fields = ('donate_amount', )
     readonly_fields = ('id',)
     inlines = [DescriptionInline]

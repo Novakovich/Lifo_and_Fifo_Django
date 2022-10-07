@@ -70,6 +70,7 @@ class Description(DonateItem):
     details = models.TextField()
     condition = models.CharField(max_length=4, choices=CONDITION_CHOICES, default='New')
     place = models.IntegerField()
+    photo = models.ImageField(upload_to='item_photo', null=True)
 
 
 def full_storage(sender, instance, **kwargs):

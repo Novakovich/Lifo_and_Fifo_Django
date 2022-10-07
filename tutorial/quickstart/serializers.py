@@ -5,7 +5,6 @@ from donation.models import Description, DonateItem
 class DescriptionSerializer(serializers.ModelSerializer):
     class Meta:
         model = Description
-
         exclude = ['donate_uuid', ]
 
 
