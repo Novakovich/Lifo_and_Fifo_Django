@@ -26,6 +26,7 @@
             <th scope="col">Состояние</th>
             <th scope="col">Место на полке</th>
             <th scope="col">Дата и время</th>
+            <th scope="col">Фото</th>
         </tr>
         </thead>
         <tbody>
@@ -62,6 +63,9 @@
                 {%if each_item.request_hash.datetime == Null%}
                 {{ each_item.donate_uuid.datetime }}
                 {%endif%}
+            </td>
+            <td>{%if each_item.description.photo%}<img style="max-height: 100px;"
+                src="{{ each_item.description.photo.url }}"/>{%endif%}
             </td>
         </tr>
         {% endfor %}

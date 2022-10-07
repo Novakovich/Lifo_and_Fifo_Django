@@ -19,7 +19,7 @@ class DescriptionAdmin(admin.ModelAdmin):
             'fields': ('amount_item', 'donate_uuid', 'state', 'condition', 'photo', 'office', 'place')
         }),
     )
-    readonly_fields = ('donate_uuid_id',)
+    readonly_fields = ('donate_uuid_id', 'photo')
     actions = [make_used]
 
 
