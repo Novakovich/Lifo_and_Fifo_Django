@@ -19,7 +19,7 @@
         {% csrf_token %}
             <p>
                 <select style="position: relative; left: -300px; top: 10px;" onchange="this.form.submit()" name="office" class="form-select" aria-label="Default select example">
-                    <option>{{request.session.office}}</option>
+                    <option>{{name.name}}</option>
                     {% for item in office %}
                         <option value="{{ item.id }}"
                             {% if item.id == request.session.office %}

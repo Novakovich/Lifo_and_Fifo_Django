@@ -17,6 +17,7 @@ def home_page(request):
         "office": Office.objects.all(),
         "disabled": office >= state.capacity,
         "criterion": SearchingItem(),
+        "name": Office.objects.get(id=request.session["office"])
     }
     return render(request, 'main.html', context)
 
