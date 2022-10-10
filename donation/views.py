@@ -8,16 +8,16 @@ from itertools import chain
 
 
 def home_page(request):
-    state = Office.objects.order_by('office_count').last()
-    if state.office_count is None:
+    name = Office.objects.get(id=request.session["office"])
+    if name.office_count is None:
         office = 0
     else:
-        office = state.office_count
+        office = name.office_count
     context = {
         "office": Office.objects.all(),
-        "disabled": office >= state.capacity,
+        "disabled": office >= name.capacity,
         "criterion": SearchingItem(),
-        "name": Office.objects.get(id=request.session["office"])
+        "name": name,
     }
     return render(request, 'main.html', context)
 
@@ -88,6 +88,7 @@ def correct_request(request, req_id):
     return render(request, 'correct_request.html', context)
 
 
+@transaction.atomic
 def described_item(request, **kwargs):
     req = Donate.objects.order_by('-datetime').first()
     if request.method == 'POST':

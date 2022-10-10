@@ -1,5 +1,5 @@
 from django.contrib import admin
-from donation.models import RequestItem, Description, Donate
+from donation.models import RequestItem, Description, Donate, Office
 
 
 @admin.action(description='Mark selected items as used')
@@ -56,3 +56,10 @@ class DonateAdmin(admin.ModelAdmin):
 
 
 admin.site.register(Donate, DonateAdmin)
+
+
+class OfficeAdmin(admin.ModelAdmin):
+    list_display = ('name', 'office_count', 'capacity')
+
+
+admin.site.register(Office, OfficeAdmin)
