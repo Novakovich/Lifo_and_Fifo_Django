@@ -1,3 +1,4 @@
+from django.contrib.auth import views
 from django.contrib import admin
 from django.urls import path, include, re_path
 import donation.views
@@ -17,6 +18,7 @@ urlpatterns = [
     re_path('request/correct_request/(?P<req_id>[\d-]+)', donation.views.correct_request),
     path('request/criterion_list', donation.views.criterion),
     path('api/', include('tutorial.quickstart.urls', namespace='api')),
+    path('login/', views.LoginView.as_view(), name='login'),
 ]
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

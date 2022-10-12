@@ -9,10 +9,7 @@ from itertools import chain
 
 def home_page(request):
     name = Office.objects.get(id=request.session["office"])
-    if name.office_count is None:
-        office = 0
-    else:
-        office = name.office_count
+    office = name.office_count
     context = {
         "office": Office.objects.all(),
         "disabled": office >= name.capacity,

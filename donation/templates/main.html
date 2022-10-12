@@ -1,11 +1,24 @@
 <!DOCTYPE html>
 <html>
+{% load static %}
 <style>
     .form-text, h6, label {
         font-style: italic;
     }
+    .card h3 {
+        font-style: italic;
+        color: #ffffff;
+    }
     .card {
         box-shadow: 10px 10px 20px rgba(0,0,0,0.5);
+    }
+    .card .card-header {
+        background-image: url({% static "1626808610_32-kartinkin-com-p-svetlii-fon-dlya-kompyutera-krasivo-33.jpg"%});
+        background-size: 100%;
+    }
+    .card-body {
+        background-image: url({% static "white-hexagon-pattern-background_1393-307.jpg"%});
+        background-size: 100%;
     }
 </style>
 <head>
@@ -17,10 +30,10 @@
     {% load crispy_forms_tags %}
     <div style="position: relative; padding: 10px;">
         <div class="card" style="width: 26rem;">
-            <div class="card-header" style="background-color: #c66ecc;">
+            <div class="card-header">
                 <h3>Issuance Of Donations One By One</h3>
             </div>
-            <div class="card-body" style="background-color: #ced45d;">
+            <div class="card-body">
                 <form action="/request/donation">
                     {% csrf_token %}
                     <button type="submit" class="btn btn-primary" style="width: 24rem;" >Ask for donate</button>
@@ -104,6 +117,7 @@
         <form action="/admin">
             <button type="submit" class="btn btn-primary" style="width: 24rem;" >Admin</button>
         </form>
+        {{place}}
     </div>
 </body>
 </html>
