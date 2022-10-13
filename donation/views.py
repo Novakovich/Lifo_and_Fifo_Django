@@ -8,12 +8,10 @@ from itertools import chain
 
 
 def home_page(request):
-    default_office_id = 1
-    if request.method == 'POST':
-        request.session["office"] = request.POST["office"]
+    if request.session.get("office"):
+        name = Office.objects.get(id=request.session["office"])
     else:
-        request.session["office"] = default_office_id
-    name = Office.objects.get(id=request.session["office"])
+        name = Office.objects.get(id=1)
     office = name.office_count
     context = {
         "office": Office.objects.all(),
