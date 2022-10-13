@@ -8,6 +8,11 @@ from itertools import chain
 
 
 def home_page(request):
+    default_office_id = 1
+    if request.method == 'POST':
+        request.session["office"] = request.POST["office"]
+    else:
+        request.session["office"] = default_office_id
     name = Office.objects.get(id=request.session["office"])
     office = name.office_count
     context = {
@@ -20,9 +25,8 @@ def home_page(request):
 
 
 def session_office(request):
-    office_id = request.session["office"] = request.POST["office"]
-    place = Office.objects.get(id=office_id)
-    return redirect(reverse('main'), {"place": place})
+    request.session["office"] = request.POST["office"]
+    return redirect(reverse('main'))
 
 
 def request(request):
