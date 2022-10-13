@@ -11,7 +11,7 @@ def home_page(request):
     if request.session.get("office"):
         name = Office.objects.get(id=request.session["office"])
     else:
-        name = Office.objects.get(id=1)
+        name = Office.objects.all().first()
     office = name.office_count
     context = {
         "office": Office.objects.all(),
