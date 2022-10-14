@@ -1,8 +1,9 @@
 import emoji
+from django.contrib import messages
 from django.db import transaction
 from django.forms import formset_factory
 from django.shortcuts import render, redirect, reverse
-from donation.forms import DescribedItem, DescribedItemFormSet, SearchingItem
+from donation.forms import DescribedItem, DescribedItemFormSet, SearchingItem, UserRegisterForm
 from donation.models import Donate, Office, Request, DonateItem, RequestItem
 from itertools import chain
 
@@ -121,3 +122,16 @@ def criterion(request, **kwargs):
                 "condition": get_condition,
                      }
             return render(request, 'criterion_list.html', context)
+
+
+def register(request):
+    if request.method == 'POST':
+        form = UserRegisterForm(request.POST)
+        if form.is_valid():
+            form.save()
+            username = form.cleaned_data.get('username')
+            messages.success(request, f'{username} account created!')
+            return redirect('main')
+    else:
+        form = UserRegisterForm()
+    return render(request, 'register.html', {'form': form})

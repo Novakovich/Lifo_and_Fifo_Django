@@ -28,6 +28,13 @@
 <body>
     {% include 'header.html' %}
     {% load crispy_forms_tags %}
+    {% if messages %}
+        	{% for message in messages %}
+          	<div class="alert alert-success {{ message.tags }}" style="text-align: center;">
+            	{{ message }}
+          	</div>
+        	{% endfor %}
+    {% endif %}
     <div style="position: relative; padding: 10px;">
         <div class="card" style="width: 26rem;">
             <div class="card-header">
@@ -48,7 +55,7 @@
             </div>
             <div class="card-body" style="background-color: #ced45d;">
                 <h6 >Here you can donate multiple donations at the same time</h6>
-                <form action="request/donate_amount" method="post" style="margin-top: 20px";>
+                <form action="request/donate_amount" method="post" style="margin-top: 20px">
                     {% csrf_token %}
                     <label>Make A Donation
                         <input type="number" name="donate" class="form-control">
@@ -81,17 +88,6 @@
             </div>
         </div>
     </div>
-    <div class="card" style="
-    box-shadow: 10px 10px 20px rgba(0,0,0,0.5);
-    width: 25rem;
-    position: absolute;
-    margin-left: 1030px;
-    margin-top: -175px;
-    padding: 10px;">
-        <form action="/list">
-            <button type="submit" class="btn btn-primary" style="width: 24rem;" >List</button>
-        </form>
-    </div>
     <div style="position: absolute;  margin-top: 0px; padding: 10px;">
         <div class="card" style="width: 26rem;">
             <div class="card-header" style="background-color: #c66ecc;">
@@ -104,18 +100,6 @@
             </form>
             </div>
         </div>
-    </div>
-    <div class="card" style="
-        box-shadow: 10px 10px 20px rgba(0,0,0,0.5);
-        width: 25rem;
-        position: absolute;
-        margin-left: 1030px;
-        margin-top: -105px;
-        padding: 10px;">
-        <form action="/admin">
-            <button type="submit" class="btn btn-primary" style="width: 24rem;" >Admin</button>
-        </form>
-        {{place}}
     </div>
 </body>
 </html>
