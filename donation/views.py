@@ -19,7 +19,10 @@ def home_page(request):
         "disabled": office >= name.capacity,
         "criterion": SearchingItem(),
         "name": name,
+        'data': [],
     }
+    donate = DonateItem.objects.all().order_by('-id')
+    context['data'] = donate
     return render(request, 'main.html', context)
 
 
@@ -61,8 +64,8 @@ def list(request):
     context = {
         'data': []
             }
-    donate = DonateItem.objects.all()
-    req = RequestItem.objects.all()
+    donate = DonateItem.objects.all().order_by('-id')
+    req = RequestItem.objects.all().order_by('-id')
     context['data'] = chain(donate, req)
 
     return render(request, 'list.html', context)

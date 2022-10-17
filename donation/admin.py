@@ -7,6 +7,11 @@ def make_used(modeladmin, request, queryset):
     queryset.update(condition='Used')
 
 
+@admin.action(description='Mark selected items as available')
+def make_available(modeladmin, request, queryset):
+    queryset.update(state='Available')
+
+
 class DescriptionAdmin(admin.ModelAdmin):
     list_display = ('name_item', 'amount_item', 'donate_uuid_id', 'state', 'condition', 'id', 'photo', 'office_id')
     search_fields = ['donate_uuid__exact']
@@ -20,7 +25,7 @@ class DescriptionAdmin(admin.ModelAdmin):
         }),
     )
     readonly_fields = ('donate_uuid_id', 'photo')
-    actions = [make_used]
+    actions = [make_used, make_available]
 
 
 admin.site.register(Description, DescriptionAdmin)
