@@ -21,7 +21,7 @@ def home_page(request):
         "name": name,
         'data': [],
     }
-    donate = DonateItem.objects.all().order_by('-id')
+    donate = DonateItem.objects.all()
     context['data'] = donate
     return render(request, 'main.html', context)
 

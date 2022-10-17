@@ -1,7 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
+{% load static %}
 <style>
-
+    th, td {
+            font-style: italic;
+            font-weight: bold;
+    }
+    .card {
+            background-image: url({% static "white-hexagon-pattern-background_1393-307.jpg"%});
+            background-size: 100%;
+    }
 </style>
 <head>
     <meta charset="UTF-8">
@@ -11,6 +19,7 @@
 </head>
 <body>
     {% include 'header.html' %}
+    <div class="card">
     <table class="table" >
         <thead>
         <tr>
@@ -38,5 +47,6 @@
     <p>
         <a href="/">Return main</a>
     </p>
+        </div>
 </body>
 </html>
