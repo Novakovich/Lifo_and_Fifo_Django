@@ -47,12 +47,12 @@
     <div style="position: relative; padding: 10px;">
         <div class="card" style="width: 26rem;">
             <div class="card-header">
-                <h3>Issuance Of Donations One By One</h3>
+                <h3>Try your luck and get a random donation</h3>
             </div>
             <div class="card-body">
                 <form action="/request/donation">
                     {% csrf_token %}
-                    <button type="submit" class="btn btn-primary" style="width: 24rem;" >Ask for donate</button>
+                    <button type="submit" class="btn btn-primary" style="width: 24rem;" >🤑 I'm lucky!</button>
                 </form>
             </div>
         </div>
@@ -105,13 +105,14 @@
             <div class="card-body">
             <form action="/request/criterion_list" method="get" style="width: 20rem;" enctype="multipart/form-data">
                 {{ criterion|crispy }}
-                <button type="submit" class="btn btn-primary" style="width: 20rem;">Поиск по критериям</button>
+                <button type="submit" class="btn btn-primary" style="width: 20rem;">Search by criteria</button>
             </form>
             </div>
         </div>
     </div>
-    <div style=" padding: 10px;">
-        <div class="card" id="idcard" style="width: 24rem; margin-left: 1020px; margin-top: -200px">
+    <form action="{% url 'request_from_main' %}" method="post">
+        {% csrf_token %}
+        <div class="card" id="idcard" style="width: 24rem; margin-left: 1020px; margin-top: -190px;">
             <div style="height=300px;" class="card-body">
             <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.5/dist/umd/popper.min.js" integrity="sha384-Xe+8cL9oJa6tN/veChSP7q+mnSPaj5Bcu9mPX5F5xIGE0DVittaqT5lorf0EI7Vk" crossorigin="anonymous"></script>
             <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.min.js" integrity="sha384-ODmDIVzN+pFdexxHEHFBQH3/9/vQ9uori45z4JjnFsRydbmQbmL5t1tQ0culUzyK" crossorigin="anonymous"></script>
@@ -123,13 +124,12 @@
                         {% for each_item in data %}
                         <div style="text-align: center;" class="carousel-item">
                             {%if each_item.description.photo%}
-                                <img style="height: 300px; margin-top: 40px;" src="{{ each_item.description.photo.url }}"/>
+                                <img style="height: 300px; width: 100%; margin-top: 40px;" src="{{ each_item.description.photo.url }}"/>
                             {%endif%}
                             <p>
-                                <a class="btn btn-outline-success"
-                                   style="background-color: #46f0e8; margin-top: 40px; text-transform: capitalize;"
-                                   href="#"> {{each_item.description.name_item}}. Reserve it!!!
-                                </a>
+                                <button type="submit" class="btn btn-primary" style="margin-top: 40px; text-transform: capitalize;" value="{{ each_item.id }}" name="req">
+                                        {{each_item.description.name_item}}. Reserve it!!! 🤗
+                                </button>
                             </p>
                         </div>
                         {% endfor %}
@@ -145,6 +145,6 @@
                 </div>
             </div>
         </div>
-    </div>
+    </form>
 </body>
 </html>

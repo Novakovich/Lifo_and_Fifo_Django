@@ -8,6 +8,7 @@ from donation.models import Donate, Office, Request, DonateItem, RequestItem
 from itertools import chain
 
 
+@transaction.atomic
 def home_page(request):
     if request.session.get("office"):
         name = Office.objects.get(id=request.session["office"])
@@ -19,9 +20,9 @@ def home_page(request):
         "disabled": office >= name.capacity,
         "criterion": SearchingItem(),
         "name": name,
-        'data': [],
+        "data": [],
     }
-    donate = DonateItem.objects.all()
+    donate = DonateItem.objects.all().select_for_update().order_by('-id').filter(state='Available')
     context['data'] = donate
     return render(request, 'main.html', context)
 
@@ -52,12 +53,16 @@ def request(request):
 
 @transaction.atomic
 def donation(request):
-    donate = DonateItem.objects.select_for_update().order_by('id').filter(state='Available').first()
+    donate = DonateItem.objects.select_for_update().order_by('?').filter(state='Available').first()
     if not donate:
         return render(request, 'no_data.html')
     donate.state = 'Booked'
     donate.save()
-    return render(request, 'donation.html', {"donate": donate})
+    context = {
+        "donate": donate,
+        "luck": '🚀',
+    }
+    return render(request, 'donation.html', context)
 
 
 def list(request):
@@ -138,3 +143,18 @@ def register(request):
     else:
         form = UserRegisterForm()
     return render(request, 'register.html', {'form': form})
+
+
+@transaction.atomic
+def request_from_main(request):
+    if request.method == 'POST':
+        req = request.POST["req"]
+        donate = DonateItem.objects.get(id=req)
+        donate.state = 'Booked'
+        donate.save()
+        context = {
+            "donate": donate,
+            "thumbs_up": (emoji.emojize(":thumbs_up:", variant="emoji_type")),
+            "heart": (emoji.emojize(":red_heart:", variant="emoji_type"))
+        }
+        return render(request, 'request_from_main.html', context)
