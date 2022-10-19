@@ -6,8 +6,9 @@
 </head>
     <body>
     {% include 'header.html' %}
-         <h5 style="text-align: center; margin-top: 40px; text-transform: uppercase;">{{thumbs_up}}We are glad that you have booked "{{donate.name_item}}".
-             <p>It's status has changed to "{{donate.state}}" and you can pick it up soon!!!{{heart}}</p>
+         <h5 style="text-align: center; margin-top: 40px;">
+                {{thumbs_up}}We are glad that you have booked "{{donate.name_item}}".
+             <p>Order status {{donate.id}} has changed to "{{donate.state}}" and you can pick it up soon!!!{{heart}}</p>
          </h5>
         <p style="text-align: center; margin-top: 20px;">
         <a href="/">Return main</a>
