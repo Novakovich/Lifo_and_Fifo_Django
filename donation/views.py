@@ -1,5 +1,5 @@
 import emoji
-from django.contrib import messages
+from django.contrib import messages, auth
 from django.db import transaction
 from django.forms import formset_factory
 from django.shortcuts import render, redirect, reverse
@@ -136,7 +136,8 @@ def register(request):
     if request.method == 'POST':
         form = UserRegisterForm(request.POST)
         if form.is_valid():
-            form.save()
+            user = form.save()
+            auth.login(request, user)
             username = form.cleaned_data.get('username')
             messages.success(request, f'{username} account created!')
             return redirect('main')
