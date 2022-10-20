@@ -15,6 +15,8 @@ def home_page(request):
     else:
         name = Office.objects.all().first()
     office = name.office_count
+    if office is None:
+        office = 0
     context = {
         "office": Office.objects.all(),
         "disabled": office >= name.capacity,

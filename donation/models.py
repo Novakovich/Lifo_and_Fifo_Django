@@ -81,4 +81,6 @@ def full_storage(sender, instance, **kwargs):
     instance.office.save()
 
 
+models.signals.post_save.connect(receiver=full_storage, sender=DonateItem)
 models.signals.post_save.connect(receiver=full_storage, sender=Description)
+

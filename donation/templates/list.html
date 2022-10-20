@@ -46,10 +46,11 @@
             <td>
                 {{ each_item.office.name }}
                     {% if each_item.state == 'Available' or each_item.state == 'Booked'%}
-                <br>пожертвование
+                <br>(пожертвование)
                     {%else%}
-                <br>запрос
+                <br>(запрос)
                     {%endif%}
+                <br>заполнение склада {{ each_item.office.office_count }} из {{ each_item.office.capacity }}
             </td>
             <td>{{ each_item.request_hash.id }}
                 {%if each_request.request_hash.request_amount == Null%}
