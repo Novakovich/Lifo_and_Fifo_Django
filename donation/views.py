@@ -1,11 +1,13 @@
 import emoji
 from django.contrib import messages, auth
+from django.contrib.auth import get_user_model
 from django.db import transaction
 from django.forms import formset_factory
 from django.shortcuts import render, redirect, reverse
 from donation.forms import DescribedItem, DescribedItemFormSet, SearchingItem, UserRegisterForm
 from donation.models import Donate, Office, Request, DonateItem, RequestItem
 from itertools import chain
+from donation.tasks import send_mail_func
 
 
 @transaction.atomic
@@ -161,3 +163,8 @@ def request_from_main(request):
             "heart": (emoji.emojize(":red_heart:", variant="emoji_type"))
         }
         return render(request, 'request_from_main.html', context)
+
+
+def send_mail_to_all(request):
+    send_mail_func.delay()
+    return render(request, 'some.html')

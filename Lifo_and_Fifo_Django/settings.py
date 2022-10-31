@@ -13,6 +13,8 @@ import os
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
+from Lifo_and_Fifo_Django.local_settings import MY_PASS
+
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 
@@ -138,4 +140,14 @@ CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
 CRISPY_TEMPLATE_PACK = "bootstrap5"
 LOGIN_REDIRECT_URL = '/'
 
-CELERY_BROKER_URL = 'amqp://localhost'
+CELERY_BROKER_URL = 'amqp://guest@localhost:5672//'
+
+
+# SMTP Settings
+EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
+EMAIL_USE_TLS = True
+EMAIL_HOST = "smtp.gmail.com"
+EMAIL_PORT = 587
+EMAIL_HOST_USER = 'teramor1986@gmail.com'
+EMAIL_HOST_PASSWORD = MY_PASS
+DEFAULT_FROM_EMAIL = 'teramor1986@gmail.com'

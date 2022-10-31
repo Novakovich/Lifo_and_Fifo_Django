@@ -1,6 +1,21 @@
-from Lifo_and_Fifo_Django.celery import app
+from django.contrib.auth import get_user_model
+from celery import shared_task
+from django.core.mail import send_mail
+from Lifo_and_Fifo_Django import settings
 
 
-@app.task
-def add(x, y):
-    return x + y
+@shared_task(bind=True)
+def send_mail_func(self):
+    users = get_user_model().objects.all()
+    for user in users:
+        mail_subject = "Hi! Celery Testing"
+        message = "привет"
+        to_email = user.email
+        send_mail(
+            subject=mail_subject,
+            message=message,
+            from_email=settings.EMAIL_HOST_USER,
+            recipient_list=[to_email],
+            fail_silently=False,
+        )
+    return "Done"
