@@ -5,17 +5,16 @@ from Lifo_and_Fifo_Django import settings
 
 
 @shared_task(bind=True)
-def send_mail_func(self):
-    users = get_user_model().objects.all()
-    for user in users:
-        mail_subject = "Hi! Celery Testing"
-        message = "привет"
-        to_email = user.email
-        send_mail(
-            subject=mail_subject,
-            message=message,
-            from_email=settings.EMAIL_HOST_USER,
-            recipient_list=[to_email],
-            fail_silently=False,
-        )
+def send_mail_func(self, user_id):
+    user = get_user_model().objects.get(id=user_id)
+    mail_subject = "Hi! Celery Testing"
+    message = "привет"
+    to_email = user.email
+    send_mail(
+        subject=mail_subject,
+        message=message,
+        from_email=settings.EMAIL_HOST_USER,
+        recipient_list=[to_email],
+        fail_silently=False,
+    )
     return "Done"

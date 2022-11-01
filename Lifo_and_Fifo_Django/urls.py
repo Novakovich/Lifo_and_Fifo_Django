@@ -22,7 +22,6 @@ urlpatterns = [
     path('logout/', views.LogoutView.as_view(), name='logout'),
     path('register/', donation.views.register, name='register'),
     path('request_from_main', donation.views.request_from_main, name='request_from_main'),
-    path('some', donation.views.send_mail_to_all, name='send_mail_to_all'),
 ]
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

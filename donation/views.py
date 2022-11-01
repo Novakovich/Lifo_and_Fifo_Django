@@ -1,6 +1,5 @@
 import emoji
 from django.contrib import messages, auth
-from django.contrib.auth import get_user_model
 from django.db import transaction
 from django.forms import formset_factory
 from django.shortcuts import render, redirect, reverse
@@ -144,6 +143,8 @@ def register(request):
             auth.login(request, user)
             username = form.cleaned_data.get('username')
             messages.success(request, f'{username} account created!')
+            user_id = user.id
+            send_mail_func.delay(user_id)
             return redirect('main')
     else:
         form = UserRegisterForm()
@@ -163,8 +164,3 @@ def request_from_main(request):
             "heart": (emoji.emojize(":red_heart:", variant="emoji_type"))
         }
         return render(request, 'request_from_main.html', context)
-
-
-def send_mail_to_all(request):
-    send_mail_func.delay()
-    return render(request, 'some.html')
