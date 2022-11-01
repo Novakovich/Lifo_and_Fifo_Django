@@ -67,7 +67,12 @@
                 <form action="request/donate_amount" method="post" style="margin-top: 20px">
                     {% csrf_token %}
                     <label>Make A Donation
-                        <input type="number" name="donate" class="form-control">
+                        <input {% if not current_office %}
+                                   disabled placeholder="Please select an office"
+                               {% endif %}
+                               type="number"
+                               name="request"
+                               class="form-control">
                     </label>
                     <div id="donate" class="form-text">Enter the number of donations.</div>
                     <button {% if disabled %} disabled {% endif %}
@@ -89,7 +94,12 @@
                 <form action="/request/number" method="post" style="margin-top: 30px;">
                     {% csrf_token %}
                     <label>Ask for request
-                        <input type="number" name="request" class="form-control">
+                        <input {% if not current_office %}
+                                   disabled placeholder="Please select an office"
+                               {% endif %}
+                               type="number"
+                               name="request"
+                               class="form-control">
                     </label>
                     <div id="request" class="form-text">Enter the number of donations requested.</div>
                     <button type="submit" class="btn btn-primary" style="width: 24rem;" >Request</button>

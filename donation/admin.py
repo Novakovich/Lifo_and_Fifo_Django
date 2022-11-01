@@ -13,7 +13,7 @@ def make_available(modeladmin, request, queryset):
 
 
 class DescriptionAdmin(admin.ModelAdmin):
-    list_display = ('name_item', 'amount_item', 'donate_uuid_id', 'state', 'condition', 'id', 'photo', 'office_id')
+    list_display = ('name_item', 'amount_item', 'donate_uuid_id', 'state', 'condition', 'id', 'office_id')
     search_fields = ['donate_uuid__exact']
     list_filter = ('state',)
     fieldsets = (

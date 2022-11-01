@@ -18,12 +18,14 @@ def home_page(request):
     office = name.office_count
     if office is None:
         office = 0
+    current_office = request.session.get("office")
     context = {
         "office": Office.objects.all(),
         "disabled": office >= name.capacity,
         "criterion": SearchingItem(),
         "name": name,
         "data": [],
+        "current_office": current_office,
     }
     donate = DonateItem.objects.all().select_for_update().order_by('-id').filter(state='Available')
     context['data'] = donate

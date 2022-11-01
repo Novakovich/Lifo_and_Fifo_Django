@@ -8,7 +8,7 @@ from Lifo_and_Fifo_Django import settings
 def send_mail_func(self, user_id):
     user = get_user_model().objects.get(id=user_id)
     mail_subject = "Hi! Celery Testing"
-    message = "привет"
+    message = "Привет из CharityBar"
     to_email = user.email
     send_mail(
         subject=mail_subject,
