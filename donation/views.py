@@ -21,7 +21,7 @@ def home_page(request):
     current_office = request.session.get("office")
     context = {
         "office": Office.objects.all(),
-        "disabled": office >= name.capacity,
+        "disabled_office": office >= name.capacity,
         "criterion": SearchingItem(),
         "name": name,
         "data": [],
