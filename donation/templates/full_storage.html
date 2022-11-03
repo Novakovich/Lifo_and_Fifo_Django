@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Total Donates</title>
+    <link rel="icon" href="data:;base64,=">
+    <!-- CSS only -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+</head>
+<body>
+    {% include 'header.html' %}
+    {% for each_item in office %}
+    <h5 style="text-align: center; margin-top: 20px;">
+        Unfortunately, the storage you want to donate to is full. <p>You can donate up to {{possible}}
+        items at the "{{each_item.name}}" office.</p>
+    </h5>
+    {% endfor %}
+    <p style="text-align: center; margin-top: 20px;">
+    <a href="/">Return main</a>
+    </p>
+</body>
+</html>

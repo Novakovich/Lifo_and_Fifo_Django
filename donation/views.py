@@ -1,6 +1,6 @@
 import emoji
 from django.contrib import messages, auth
-from django.db import transaction
+from django.db import transaction, IntegrityError
 from django.forms import formset_factory
 from django.shortcuts import render, redirect, reverse
 from donation.forms import DescribedItem, DescribedItemFormSet, SearchingItem, UserRegisterForm
@@ -101,7 +101,6 @@ def correct_request(request, req_id):
     return render(request, 'correct_request.html', context)
 
 
-@transaction.atomic
 def described_item(request, **kwargs):
     req = Donate.objects.order_by('-datetime').first()
     if request.method == 'POST':
@@ -111,7 +110,18 @@ def described_item(request, **kwargs):
                 new_item = form.save(commit=False)
                 new_item.office_id = request.session["office"]
                 new_item.donate_uuid = req
-                new_item.save()
+                try:
+                    with transaction.atomic():
+                        new_item.save()
+                except IntegrityError:
+                    office = Office.objects.all().filter(id=request.session["office"])
+                    for i in office:
+                        possible = i.capacity - i.office_count
+                        context = {
+                            'office': office,
+                            "possible": possible,
+                        }
+                        return render(request, "full_storage.html", context)
                 form.save_m2m()
         context = {
             "request_hash_id": req,
