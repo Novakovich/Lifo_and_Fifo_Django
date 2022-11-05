@@ -11,19 +11,9 @@ from donation.tasks import send_mail_func
 
 @transaction.atomic
 def home_page(request):
-    if request.session.get("office"):
-        name = Office.objects.get(id=request.session["office"])
-    else:
-        name = Office.objects.all().first()
-    office = name.office_count
-    if office is None:
-        office = 0
     current_office = request.session.get("office")
     context = {
-        "office": Office.objects.all(),
-        "disabled_office": office >= name.capacity,
         "criterion": SearchingItem(),
-        "name": name,
         "data": [],
         "current_office": current_office,
     }
