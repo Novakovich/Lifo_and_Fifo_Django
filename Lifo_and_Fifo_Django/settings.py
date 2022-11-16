@@ -33,6 +33,8 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'daphne',
+    'chat',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -44,6 +46,7 @@ INSTALLED_APPS = [
     'donation',
     "crispy_forms",
     "crispy_bootstrap5",
+    "channels",
 ]
 
 MIDDLEWARE = [
@@ -152,3 +155,6 @@ EMAIL_PORT = 587
 EMAIL_HOST_USER = 'teramor1986@gmail.com'
 EMAIL_HOST_PASSWORD = MY_PASS
 DEFAULT_FROM_EMAIL = 'teramor1986@gmail.com'
+
+# Daphne
+ASGI_APPLICATION = "Lifo_and_Fifo_Django.asgi.application"

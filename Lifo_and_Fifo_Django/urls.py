@@ -22,6 +22,7 @@ urlpatterns = [
     path('logout/', views.LogoutView.as_view(), name='logout'),
     path('register/', donation.views.register, name='register'),
     path('request_from_main', donation.views.request_from_main, name='request_from_main'),
+    path("chat/", include("chat.urls")),
 ]
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

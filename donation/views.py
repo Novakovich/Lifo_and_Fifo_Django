@@ -2,7 +2,9 @@ import emoji
 from django.contrib import messages, auth
 from django.db import transaction, IntegrityError
 from django.forms import formset_factory
+from django.http import HttpResponseRedirect
 from django.shortcuts import render, redirect, reverse
+from django.utils.datastructures import MultiValueDictKeyError
 from donation.forms import DescribedItem, DescribedItemFormSet, SearchingItem, UserRegisterForm
 from donation.models import Donate, Office, Request, DonateItem, RequestItem
 from itertools import chain
@@ -24,19 +26,25 @@ def home_page(request):
 
 def session_office(request):
     request.session["office"] = request.POST["office"]
-    return redirect(reverse('main'))
+    return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
 
 
 def request(request):
     if request.POST.get('request'):
-        n = Request.objects.create(request_amount=request.POST["request"])
+        try:
+            n = Request.objects.create(request_amount=request.POST["request"])
+        except MultiValueDictKeyError:
+            return redirect(reverse('main'))
         context = {
             "request": range(int(n.request_amount)),
             "req_id": n.id,
                 }
         return render(request, 'number.html', context)
     else:
-        n = Donate.objects.create(donate_amount=request.POST["donate"])
+        try:
+            n = Donate.objects.create(donate_amount=request.POST["donate"])
+        except MultiValueDictKeyError:
+            return redirect(reverse('main'))
         how_many = int(n.donate_amount)
         DescribedItemFormSet = formset_factory(DescribedItem, extra=how_many)
         formset = DescribedItemFormSet()
