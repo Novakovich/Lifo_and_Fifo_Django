@@ -158,3 +158,9 @@ DEFAULT_FROM_EMAIL = 'teramor1986@gmail.com'
 
 # Daphne
 ASGI_APPLICATION = "Lifo_and_Fifo_Django.asgi.application"
+
+CHANNEL_LAYERS = {
+    "default": {
+        "BACKEND": "channels.layers.InMemoryChannelLayer"
+    }
+}
