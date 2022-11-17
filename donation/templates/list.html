@@ -10,6 +10,19 @@
         background-image: url({% static "white-hexagon-pattern-background_1393-307.jpg"%});
         background-size: 100%;
     }
+    table {
+    counter-reset: rowNumber;
+    }
+
+    table tbody tr {
+        counter-increment: rowNumber;
+    }
+
+    table tr td:first-child::before {
+        content: counter(rowNumber);
+        min-width: 1em;
+        margin-right: 0.5em;
+    }
 </style>
 <head>
     <meta charset="UTF-8">
@@ -24,6 +37,7 @@
     <table class="table" >
         <thead>
         <tr>
+            <th scope="col">№</th>
             <th scope="col">Id</th>
             <th scope="col">Наименование</th>
             <th scope="col">Количество</th>
@@ -41,6 +55,7 @@
         <tbody>
         {% for each_item in data %}
         <tr>
+            <td></td>
             <td>{{ each_item.id }}</td>
             <td>{{ each_item.name_item }}</td>
             <td>{{ each_item.amount_item }}</td>

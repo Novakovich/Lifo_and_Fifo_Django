@@ -72,8 +72,8 @@ def list(request):
     context = {
         'data': []
             }
-    donate = DonateItem.objects.all().order_by('-id')
-    req = RequestItem.objects.all().order_by('-id')
+    donate = DonateItem.objects.select_related('office').all().order_by('-id')
+    req = RequestItem.objects.select_related('office').all().order_by('-id')
     context['data'] = chain(donate, req)
 
     return render(request, 'list.html', context)
