@@ -1,13 +1,24 @@
 <!DOCTYPE html>
 <html>
+{% load static %}
 <head>
     <meta charset="utf-8"/>
     <title>Chat Room</title>
+    <link rel="icon" href="data:;base64,=">
+    <!-- CSS only -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
 </head>
 <body>
-    <textarea id="chat-log" cols="100" rows="20"></textarea><br>
-    <input id="chat-message-input" type="text" size="100"><br>
-    <input id="chat-message-submit" type="button" value="Send">
+{% include 'header.html' %}
+    <textarea style="margin-left: 40px; margin-top: 15px;" id="chat-log" cols="100" rows="15"></textarea><br>
+    <input style="margin-left: 40px; margin-top: 15px;" id="chat-message-input" type="text" size="97"><br>
+    <button style="margin-left: 40px; margin-top: 15px;"
+            id="chat-message-submit"
+            type="submit"
+            class="btn btn-primary"
+            value="Send">
+        Send a massage
+    </button>
     {{ room_name|json_script:"room-name" }}
     <script>
         const roomName = JSON.parse(document.getElementById('room-name').textContent);

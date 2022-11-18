@@ -1,14 +1,25 @@
 <!-- chat/templates/chat/index.html -->
 <!DOCTYPE html>
 <html>
+{% load static %}
 <head>
     <meta charset="utf-8"/>
     <title>Chat Rooms</title>
+    <link rel="icon" href="data:;base64,=">
+    <!-- CSS only -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
 </head>
 <body>
-    What chat room would you like to enter?<br>
-    <input id="room-name-input" type="text" size="100"><br>
-    <input id="room-name-submit" type="button" value="Enter">
+{% include 'header.html' %}
+    <h6 style="margin-left: 40px; font-style: italic; margin-top: 15px;">What chat room would you like to enter?</h6>
+    <input style="margin-left: 40px; margin-top: 5px;" id="room-name-input" type="text" size="100"><br>
+    <button style="margin-left: 40px; margin-top: 15px;"
+            id="room-name-submit"
+            type="submit"
+            class="btn btn-primary"
+            value="Enter">
+        Choose a room
+    </button>
 
     <script>
         document.querySelector('#room-name-input').focus();
