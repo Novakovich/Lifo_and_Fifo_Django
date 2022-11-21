@@ -94,6 +94,9 @@ DATABASES = {
         'PASSWORD': os.environ.get('DB_PASSWORD', 'donate'),
         'HOST': '127.0.0.1',
         'PORT': '5432',
+        "TEST": {
+            "NAME": 'donate_test',
+        },
     }
 }
 
