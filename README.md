@@ -11,6 +11,6 @@ Main knowledge and skills used in development:
 - built-in admin panel with all features for data manipulation (sorting, changing fields, immutable fields, actions, Search fields by uuid)
 - worked with DjangoRestFramework API and Postman, created serializers and connected urls.py
 - enabled login and logout
-- used celery and rabbitMQ to justify registration.  
+- used celery and rabbitMQ to notify user about registration.  
 - The latest: added context_processor, select_related, debug_toolbar and chat.
 In the visual design I tried to work out the HTML with Bootstrap5, crispy_forms, added header for all pages, connected STATIC FILES and MEDIA FILES and other features.
