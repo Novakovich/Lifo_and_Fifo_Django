@@ -34,7 +34,6 @@ class Request(models.Model):
 class Donate(models.Model):
     donate_amount = models.IntegerField(default=0)
     datetime = models.DateTimeField(default=timezone.now)
-    id = models.UUIDField(default=uuid.uuid4, unique=True, primary_key=True)
 
 
 class Item(models.Model):
